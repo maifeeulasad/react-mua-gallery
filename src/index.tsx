@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import "./style/fontawesome-all.min.css"
 import "./style/main.css"
 
@@ -22,6 +22,7 @@ class Gallery extends React.Component<IGalleryProp, IGalleryState>{
         return images
     }
 
+    // @ts-ignore
     componentDidUpdate(prevProps: Readonly<IGalleryProp>, prevState: Readonly<IGalleryState>, snapshot?: any) {
         if(this.props.images!==prevProps.images){
             this.setState({
