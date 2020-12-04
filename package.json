@@ -1,46 +1,43 @@
 {
   "name": "react-mua-gallery",
-  "version": "1.0.2",
-  "description": "Just another Galerry template for React.js by MUA",
-  "author": "Maifee Ul Asad",
-  "license": "MIT",
-  "repository": "https://github.com/maifeeulasad/react-mua-gallery",
-  "main": "dist/index.js",
-  "engines": {
-    "node": ">=8",
-    "npm": ">=5"
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "react": ">= 16.8.0 < 2",
-    "react-dom": ">= 16.8.0 < 2"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "devDependencies": {
-    "@types/react": "^16.3.13",
-    "@types/react-dom": "^16.0.5",
-    "babel-core": "^6.26.3",
-    "babel-runtime": "^6.26.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "rollup": "^1.29.0",
-    "rollup-plugin-css-only": "^3.0.0",
-    "rollup-plugin-sass": "^1.2.2",
-    "rollup-plugin-typescript2": "^0.25.3",
-    "typescript": "^2.8.3"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "react",
-    "typescript",
-    "npm",
-    "gallery",
-    "mua",
-    "maifee"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
