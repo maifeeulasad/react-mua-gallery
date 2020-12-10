@@ -9420,10 +9420,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
-react-mua-gallery@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-mua-gallery/-/react-mua-gallery-1.0.2.tgz#0e66b63255523c08f5ba633cd2603a08ff913d75"
-  integrity sha512-8Lso6cUyMbeZIom8+rgLSD0dckPYtK3AS/uW2u9JAEt9nLOrk0IVek7LKksatHmz+//GSuin0bBQJ9R3vl2F3g==
+react-mua-gallery@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-mua-gallery/-/react-mua-gallery-1.0.5.tgz#9f8495a696450f2593b2c5ccc505ae39c658fcd8"
+  integrity sha512-q/PDFKUAgWLI1QUAxke1YuN0ADGO/2BoMm0HvE3B6Jgj5XlqUiXrCOKD4Mgjic9ctINHHqho3Tk9jjvl7C5lkg==
 
 react-refresh@^0.8.3:
   version "0.8.3"
