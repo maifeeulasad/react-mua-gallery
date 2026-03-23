@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lumina Gallery - Curator</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#c9e7f7",
+                        "surface-dim": "#d1dce0",
+                        "primary-fixed-dim": "#bfd5ff",
+                        "on-primary-container": "#37527d",
+                        "primary-dim": "#38537e",
+                        "surface-tint": "#445f8a",
+                        "surface-variant": "#dbe4e7",
+                        "tertiary-dim": "#51516c",
+                        "outline": "#737c7f",
+                        "background": "#f8f9fa",
+                        "error-container": "#fe8983",
+                        "on-secondary-fixed-variant": "#435f6d",
+                        "on-secondary-fixed": "#264350",
+                        "on-error-container": "#752121",
+                        "on-background": "#2b3437",
+                        "on-primary-fixed": "#234069",
+                        "inverse-on-surface": "#9b9d9e",
+                        "on-tertiary-fixed": "#373851",
+                        "secondary-fixed-dim": "#bbd9e9",
+                        "on-primary-fixed-variant": "#415c87",
+                        "tertiary-fixed-dim": "#cbc9e9",
+                        "surface-container-highest": "#dbe4e7",
+                        "on-tertiary": "#fbf7ff",
+                        "error": "#9f403d",
+                        "primary-container": "#d6e3ff",
+                        "surface-container-low": "#f1f4f6",
+                        "surface-container-high": "#e3e9ec",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#0c0f10",
+                        "tertiary-container": "#d9d7f8",
+                        "primary": "#445f8a",
+                        "on-surface": "#2b3437",
+                        "on-secondary": "#f3faff",
+                        "surface-bright": "#f8f9fa",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-container": "#eaeff1",
+                        "on-tertiary-container": "#4a4a65",
+                        "error-dim": "#4e0309",
+                        "tertiary-fixed": "#d9d7f8",
+                        "tertiary": "#5d5d78",
+                        "on-tertiary-fixed-variant": "#54546f",
+                        "on-surface-variant": "#586064",
+                        "inverse-primary": "#b2cdff",
+                        "surface": "#f8f9fa",
+                        "secondary-container": "#c9e7f7",
+                        "on-error": "#fff7f6",
+                        "on-primary": "#f6f7ff",
+                        "outline-variant": "#abb3b7",
+                        "secondary-dim": "#3a5764",
+                        "on-secondary-container": "#395663",
+                        "secondary": "#466370"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e3e9ec;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Top Navigation Shell -->
+    <header
+        class="fixed top-0 w-full z-50 bg-slate-50/70 dark:bg-slate-900/70 backdrop-blur-xl flex justify-between items-center px-6 h-16 w-full no-border tonal-shift-surface-container-low">
+        <div class="flex items-center gap-4">
+            <span
+                class="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tighter font-headline">Curator</span>
+        </div>
+        <div class="hidden md:flex flex-1 max-w-xl mx-8">
+            <div class="w-full relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant"
+                    data-icon="search">search</span>
+                <input
+                    class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 text-sm font-body transition-all outline-none"
+                    placeholder="Search your Lumina Gallery..." type="text" />
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <button
+                class="px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary-container/30 transition-colors">Select</button>
+            <div class="flex items-center gap-1">
+                <button class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors"
+                    title="Search">
+                    <span class="material-symbols-outlined text-slate-700 dark:text-slate-200"
+                        data-icon="search">search</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors"
+                    title="More Options">
+                    <span class="material-symbols-outlined text-slate-700 dark:text-slate-200"
+                        data-icon="more_vert">more_vert</span>
+                </button>
+            </div>
+            <div
+                class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high ml-2 border border-outline-variant/10">
+                <img alt="User" data-alt="Close up portrait of a smiling user"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD73wJTr_yMUKRX28fy2J1p60i_mem5SzM_5GwUmg6LbEG06tZeGfnZlkeQbTmwW66jJDgBlLqDoUb5WW_lNzQv6U-YMg35qrMA27GtdVBUpgpCd-1ulgfpm1HpSCJhSg6V0pW1NmaTDR9RmxIWMgDyyP1iWZpOmx9N7WUuagKcpIhTgKnmXZqO-FqXN2HkV4HfontfKJvdSaL2zPVcmS5a3RditbW3xoY9EI2RZfBUX1NtaeVk-DT6lvh_E4IWikG1LAewgRNMcg" />
+            </div>
+        </div>
+    </header>
+    <div class="flex pt-16 min-h-screen">
+        <!-- Side Navigation Shell -->
+        <aside
+            class="h-[calc(100vh-64px)] w-64 hidden md:flex flex-col gap-4 p-6 sticky top-16 bg-slate-100 dark:bg-slate-950 tonal-layering-surface-container-low border-r-0 overflow-y-auto custom-scrollbar">
+            <div class="mb-6 px-2">
+                <h2 class="text-lg font-black text-slate-900 dark:text-white font-headline tracking-tight">My Gallery
+                </h2>
+                <p class="text-xs text-slate-500 font-medium">The Digital Curator</p>
+            </div>
+            <nav class="flex flex-col gap-1.5">
+                <a class="flex items-center gap-4 p-3 bg-blue-100/50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-xl transition-all duration-200 ease-in-out font-medium text-sm"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="grid_view"
+                        style="font-variation-settings: 'FILL' 1;">grid_view</span>
+                    <span>All</span>
+                </a>
+                <a class="flex items-center gap-4 p-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl transition-all duration-200 ease-in-out font-medium text-sm"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="group">group</span>
+                    <span>People</span>
+                </a>
+                <a class="flex items-center gap-4 p-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl transition-all duration-200 ease-in-out font-medium text-sm"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="face">face</span>
+                    <span>Selfies</span>
+                </a>
+                <a class="flex items-center gap-4 p-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl transition-all duration-200 ease-in-out font-medium text-sm"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="nature_people">nature_people</span>
+                    <span>Nature</span>
+                </a>
+            </nav>
+            <div class="mt-auto pt-6 border-t border-outline-variant/10">
+                <div class="bg-surface-container-lowest p-4 rounded-2xl">
+                    <p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-2">Storage</p>
+                    <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full w-[72%] rounded-full"></div>
+                    </div>
+                    <p class="text-[11px] mt-2 text-on-surface-variant">72% of 15GB used</p>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content Canvas -->
+        <main class="flex-1 bg-surface min-h-screen px-4 md:px-12 py-8 pb-32">
+            <!-- Filter Chips Mobile -->
+            <div class="flex md:hidden overflow-x-auto gap-2 mb-8 pb-2 no-scrollbar">
+                <button
+                    class="px-5 py-2 rounded-full bg-primary text-on-primary text-sm font-semibold whitespace-nowrap">All</button>
+                <button
+                    class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium whitespace-nowrap">People</button>
+                <button
+                    class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium whitespace-nowrap">Selfies</button>
+                <button
+                    class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium whitespace-nowrap">Nature</button>
+                <button
+                    class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium whitespace-nowrap">Travel</button>
+            </div>
+            <!-- Group: Today -->
+            <section class="mb-14">
+                <header class="flex items-center justify-between mb-6">
+                    <h3 class="font-headline text-2xl font-extrabold tracking-tight text-on-surface">Today</h3>
+                    <span class="text-sm font-medium text-on-surface-variant">4 items</span>
+                </header>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 group cursor-pointer">
+                        <img alt="Gallery item" class="w-full h-full object-cover"
+                            data-alt="Minimalist architectural window view with blue sky"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1fT7N42xi4skPpJF1jgB-G7N_iGHSTvukyCWcj5fxZwVklauxiu3oxAi0oUDNSq2Fcic8lRezbog0NTqmege1dtE6-44GSv_Eey_FN3_DTiSkRxDP1EzETQ52aVZz1vJdmWI9KyJYTpJB026IGyocMNqhWYm-zTb_kV8aZ43Ev41QfU9jE3I-nn2o7grpFPtAMPjUow5xrShx7OMVOF0HDnLA0euujKNWjCYZKbvVpPPDMb6PHkOu7yYsyq3EktTYXfC1Sa5M8w" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 group cursor-pointer">
+                        <img alt="Gallery item" class="w-full h-full object-cover"
+                            data-alt="Vibrant orange sunrise over a mountain range"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuClL5HFC6rqoYRvk4GtUqk7jkZs82IvJ9gCibKRe8MDv_qPZgfJlJRuD0r_7QfGzg5WON2jOd4BNgYdLwEYA0a190uucUNL0y4m2k-XYX98YjJSlgT9vTLJ4iX1ab30pK18yDIMnCLCarNghpBo3j_B6L57V2pD_CBlk17Cwj_epHm74tEpb8hfB_MM71Snbn84CmLVXGaUN_JaYufTADMnVcMVR1BL2bEMuD0VoYbqPs7Wn7OvcrWxcw4rrfX356Vruw8AFI4bdA" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 group cursor-pointer">
+                        <img alt="Gallery item" class="w-full h-full object-cover"
+                            data-alt="Lush green forest landscape with heavy fog"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaOhzzJ7N6ZMaZQoDJCjOqqOJMmXk47dy2NhopDhvYAZNLEFjTCg10w2CuZqwer-KXXNlaAp5Aae09MQuvcqmB5nsjifZSeB5hwaaC2imY00DZIwRej81kVTgkDMjJiqmROWecFox3TxH734pcNclkMSMfyu1qV_Ew16ZtifvDKU12WbMF7PxOBm3YFMb5wrR6xxfoZ9MqEHoMK4EphSp9d_rC-SQ3U6aoZrb9xXdoTalsUBlb3oR1eUUXYF3AIq6PYiX1VdCkKg" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 group cursor-pointer">
+                        <img alt="Gallery item" class="w-full h-full object-cover"
+                            data-alt="Serene mountain lake reflecting clear blue sky"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSJ5NrN1B5f6UmEeg5T6QDmXFGPtEBLOZeioSxpRY4MVCmzUSA1QKf014lY-4vGIpaKGKGhfi7SKlr3BGRc2Ow-zaT-rd4OaYTdZrtY_g4NQRq-MSQhDwO-IipeLGiaHICBXMK3Uki70qWO2679P9PW9gxdqXGKGUDXhcNSQKsrsfAU0UFgMoRBtD_GuLvfGdkU2W-vYxVQ2k5g7Bh2cAZ95Dg_G88KK17BTArKg9Sp5KAsMmeIQhAgzRmSZ-1CcOz_bOv89bBoA" />
+                    </div>
+                </div>
+            </section>
+            <!-- Group: Yesterday -->
+            <section class="mb-14">
+                <header class="flex items-center justify-between mb-6">
+                    <h3 class="font-headline text-2xl font-extrabold tracking-tight text-on-surface">Yesterday</h3>
+                    <span class="text-sm font-medium text-on-surface-variant">6 items</span>
+                </header>
+                <div class="grid grid-cols-3 lg:grid-cols-6 gap-3">
+                    <!-- Smaller thumbs for historical density -->
+                    <div
+                        class="aspect-square rounded-2xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Portrait" class="w-full h-full object-cover"
+                            data-alt="Soft lit portrait of a woman looking away"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5OCwMiR5BHuZm5fvqqUjn_WRlxvMbJ0WjbrnYqXq21zbTUG0ge0VLcWeQdlq3onC3cI1aHgpxjasUpSsLuphtyZkOfiXjT0of5JD8JqGJg8MsJ7M9dF4fnGwufa3sNSE5q1058FZibZuQ5OLQcrv5cjw6kvWAZR5WbOnTWQLajXWRVHL0tS7XwhMHGVDTImtKqXX8ZNFiRl_cOL1iFnC8Ome1aSke9Ij220wFqzyT4ZD9HyBsNecvgZ6s5EdjeunqvnaFlkV_5A" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Portrait" class="w-full h-full object-cover"
+                            data-alt="Candid portrait of a man in natural light"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB6Q7Fts8rigeXQxYFna8jChP8afx3vZMF0iJ2WGHZkrKSeDZlLI-LHIgzFkgmsSQrDCJPvgCd-GQ2m6epyeXjZEoVsAsBxAgxRQuoqPUkapBQsmie6sr96e2GdpfwdYaYBNiZH6qt1qp1tzqKh2LrPBmB_u_LtBn-ll4SAy6kdS4QDauz75VXwPHbPU6T3VlOBdgJLLdsODgQ1rFxdP7VmEzONh4cqM7qlzQdJAtbMZWJaza3I90uiZ6eqau2XJu1m4o4Y6xclQ" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Portrait" class="w-full h-full object-cover"
+                            data-alt="Classic headshot of a person with neutral expression"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeoAJ_PWvAEiHkfU_9Ty1-1ZlnjUbDoRrNdm7L3id4VozW-6_amWaEmWG5L1agLOhawTMNeSw72skyUVtudJESJOjOtdC23BF5DJViMYhlJVAQ5ljVN5hbClHwF_Kn2LwJbaaHmtKqSec5SvUDeZ321F7rU2ai724ABPux6aRSECVbMl5OiFcjJ4YTpqgvvKAc0e4M4ylGNfQXCCHIe8dPT6LCbcB-D9bKKmQBOkirdOnIJZA_XwBkCTm5oH9M1_fRsULJgdDbg" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Portrait" class="w-full h-full object-cover"
+                            data-alt="Smiling person standing in an urban outdoor setting"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO91mNMFJ1sXGW21jLilIW4771c1TNJSXbjY4Rx5k97uCGOAI5bfCzEVnFSmNHRluMJR-2jWbglKqPf52DHtP4It91GU98yEkRjlB0Oz94oyq1gUsoWnIAIkcpaFQGp66LvHqI0BiwKPuQ1ei5jb0BhL-P4NG7k17WdkiFJrxhdVW_kBddM1yAFmCgg8laLHiaoTrMGihapGDCN1a3zJg74hFiJWZYEqZiQiYedS32-u0cKlXxJ5lGkjyZvLnAzKD0ovPGJhDneQ" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Portrait" class="w-full h-full object-cover"
+                            data-alt="Close up of a person with artistic lighting"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrwiLYycYCX5UZCqn67zuwx0asXw6Vt__iamHfwwllHRU-RMubzq_2lDBQ5pnusXy0rLXNJEiOkCiUFyFb_Ka1dm0aYWtWbOznW3KcZexUNAr8zogQrguJRYRCx3uuhpRSD5Qqf4PrGeTnwJWmQ2n6l2Xbk_LfC0bjhgi8e6i7llkHuSaKn053qlAyWmbfcv5m_3dopnvPl18CO1-Eb1m73SoNSv24Th9ee_Bq6rxffMHnvvuaR7YpwDp2VzMMwnLFlheEJb7EOQ" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Portrait" class="w-full h-full object-cover"
+                            data-alt="Profile shot of a person against a textured wall"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9kuT_EuK3KmV336o1sQDwmN68xh6a3LVvH5aMdRh-gxVYmZT1cztARpPZXFrXww47_3UPsZomqFi1H4zcIBxD1qGqn4uohO3JciZxSZQeQDiZcRLeKZJlOnhjAYAlIYeZKSy-MD29QCRZMVV9TaZwRoV4K6IV-tyKnNzJdbc8s7jsnu2hFmch2KC0ScOVZD-jVv4F79_-8jYZOPV4LuofUVcxWKap0JrFRu9YnZUL1dq9c9i4fqSTiL_raU2SVJ5rpbMbOxyAgg" />
+                    </div>
+                </div>
+            </section>
+            <!-- Group: October -->
+            <section class="mb-14">
+                <header class="flex items-center justify-between mb-6">
+                    <h3 class="font-headline text-2xl font-extrabold tracking-tight text-on-surface">October</h3>
+                    <span class="text-sm font-medium text-on-surface-variant">12 items</span>
+                </header>
+                <!-- Asymmetric Masonry-style Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div
+                        class="col-span-2 row-span-2 aspect-video md:aspect-auto rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.01] transition-transform duration-300 cursor-pointer">
+                        <img alt="Landscape" class="w-full h-full object-cover"
+                            data-alt="Grand mountain range with snow-capped peaks and clouds"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYUcLXRX-UyiaydqGXxF1fpdkC4x2bl0sc--TypFVzVCKmYkxyjEeCcSx33LGsz5Hqc_NVfR112ge2ZiBSW0OENMqeE6yjNhfkzuQ5RfTv9Yallrup7vrVfHps7wA0xBEDybl4mR5Z4zvAsErOmEHEDdSX7BPEqN08Zw2Kw3U1r_BwWV_NNiOWBNlVbzFz3Y0j0wchomPzRveaHqJw6YKu23RQ6Mjh3AhygDUMLSdgpM2JApDvI1Me_BOeGhEJvZN5ydD-5SuPHQ" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Nature" class="w-full h-full object-cover"
+                            data-alt="Sunbeams filtering through a dense green forest"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPsiunoripILqGxcCIV1JJgD6NA0muA-bjVkDDQrxAeT5E8AKIjEgZaMmhF43hXIuZeHrPrvqZcxyfOou3MWXD3S_g7N4T8Tp0IQZXryHqizS1e4lECLjwlBifu0mHbdWIM6mePiWFmin3dUUT2AJ10EuM-lC8sLHNkZufZySL5_7E5To-_rXO6IOngLyCw-fR1JNCPewaCSxXYoOhBxSijG-fObkqf_YOLlgH9Lpy3L4Pzm-6vCzMv1T3Nq_gcCuGe7hhRHR8Ig" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Nature" class="w-full h-full object-cover"
+                            data-alt="Aerial view of a winding river in autumn"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8rgxUJzaGbUEHJxDJu2ckC3-QtwXEfRW8L654iLzG0bgfaZVRPSF0Po5SzkjlVKepYfNsYLyv8cREdx7hfNI4JQYhpD7NqHk43Sg2Of3CVZKci5OM4PsUkabLC3AHoJizVaV8gJU3nscaYNtvN3kSKxDc2lgQ-au_Hzy1ICf3wh04fHR7keed6ns2K1HLRQB0nmmXVPFYVLS_cYQFbgmr_znTv1D5eYhdSgPamLJdoNSJ3fhKqlGd3EJ1UUgldd-mmWdXRMT8aQ" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Nature" class="w-full h-full object-cover"
+                            data-alt="Beautiful sunset over a peaceful country meadow"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYXD3uWEbc83eoazB3vwh4nPzifLOED5CMYhek1LDmtwl-RYcUPPqFFUWj6YdBgfVbdAXBEMy6iHjGWKbZ-0Fm8mIyZa1SYITW9HvhbjJVbBNweMx296An29e7pgNZq_TaZUNqrMNhSuv0dIjO8r2Rzq-H59F2igUtCgjGEAGVB_at182eZN0twu585nqQy1Nz_rlRZE998cB6eP7g9zQApYrb9uwIJasMgfXBM-96PmqHgBnVMjhHUqb9yEY6DImdI1CuTui7_g" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden bg-surface-container hover:scale-[1.02] transition-transform duration-300 cursor-pointer">
+                        <img alt="Nature" class="w-full h-full object-cover"
+                            data-alt="Dramatic waterfall cascading down dark volcanic rocks"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQYS3OIfXqt0afjB7wuQ0Wy7Fe6opyFbg7WzKWkffHbsNb9NrEbcEsIyT6qRnpv6UqOx047z5WrQcCMZFjI2yZ3ySaDd4aqdnRPGikS8tt7D0ouY6gGwJxSO1gnXlCX5kjOxGgXXJQcxcDD2ga-2IYTH_yZGdg_WpxkM-qBnIggnODoQdOvnF6HJbcEbGfW8XNmEH9JAjL6aFH22iLxfyeA4Cc_LZbJkuFSR-biE7h6d6nTIYtzfKP-tYevBmIlUkxlWpsq5ZKfw" />
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Curator FAB -->
+    <button
+        class="fixed bottom-24 right-6 md:bottom-8 md:right-12 w-16 h-16 bg-primary-container text-on-primary-container rounded-3xl shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 glass-blur z-50">
+        <span class="material-symbols-outlined text-3xl" data-icon="add"
+            style="font-variation-settings: 'wght' 600;">add</span>
+    </button>
+    <!-- Bottom Navigation Shell (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 md:hidden bg-slate-50/70 dark:bg-slate-900/70 backdrop-blur-20px shadow-2xl rounded-t-3xl glassmorphism-surface-variant">
+        <a class="flex flex-col items-center justify-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-2xl p-2 px-4 active:scale-95 transition-transform duration-300"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="grid_view"
+                style="font-variation-settings: 'FILL' 1;">grid_view</span>
+            <span class="font-inter text-[10px] font-medium mt-1">All</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-2 active:scale-95 transition-transform duration-300"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="group">group</span>
+            <span class="font-inter text-[10px] font-medium mt-1">People</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-2 active:scale-95 transition-transform duration-300"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="face">face</span>
+            <span class="font-inter text-[10px] font-medium mt-1">Selfies</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-2 active:scale-95 transition-transform duration-300"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="nature_people">nature_people</span>
+            <span class="font-inter text-[10px] font-medium mt-1">Nature</span>
+        </a>
+    </nav>
+</body>
+
+</html>
