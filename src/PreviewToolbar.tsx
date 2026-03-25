@@ -1,4 +1,5 @@
 import { IconButton } from './IconButton';
+import { PreviewToolbarProps } from './types';
 
 /**
  * PreviewToolbar — top bar for the preview pane (split mode)
@@ -6,51 +7,28 @@ import { IconButton } from './IconButton';
  * @param {function} onClose
  * @param {boolean} isFullscreen - adjusts styling
  */
-interface PreviewToolbarProps {
-  item: { filename?: string };
-  onClose: () => void;
-  isFullscreen?: boolean;
-}
-
-export function PreviewToolbar({ item, onClose, isFullscreen = false }: PreviewToolbarProps) {
-  const bg = isFullscreen
-    ? 'bg-black/30 backdrop-blur-xl text-white border-white/10'
-    : 'bg-surface/80 backdrop-blur-xl text-on-surface border-outline-variant/20';
-
+export function PreviewToolbar({ item, onClose, dark = false }: PreviewToolbarProps) {
   return (
-    <div className={`flex items-center justify-between px-4 h-14 border-b ${bg}`}>
-      <div className="flex items-center gap-3">
-        <IconButton
-          icon="close"
-          label="Close preview"
-          onClick={onClose}
-          variant={isFullscreen ? 'ghost' : 'default'}
-        />
-        <span className={`text-sm font-medium font-body truncate max-w-[200px] ${isFullscreen ? 'text-white/90' : 'text-on-surface'}`}>
+    <div style={{
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      padding: "0 16px", height: 56, flexShrink: 0,
+      background: dark ? "rgba(0,0,0,0.3)" : "rgba(248,249,250,0.85)",
+      backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+      borderBottom: dark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(171,179,183,0.2)",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+        <IconButton icon="close" label="Close" onClick={onClose} variant={dark ? "ghost" : "default"} />
+        <span style={{
+          fontSize: 13, fontWeight: 500, color: dark ? "rgba(255,255,255,0.85)" : "var(--on-surface)",
+          overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis", maxWidth: 220,
+        }}>
           {item?.filename}
         </span>
       </div>
-
-      <div className="flex items-center gap-1">
-        <IconButton
-          icon="star"
-          label="Favourite"
-          iconFilled
-          variant={isFullscreen ? 'ghost' : 'default'}
-          onClick={() => {}}
-        />
-        <IconButton
-          icon="download"
-          label="Download"
-          variant={isFullscreen ? 'ghost' : 'default'}
-          onClick={() => {}}
-        />
-        <IconButton
-          icon="share"
-          label="Share"
-          variant={isFullscreen ? 'ghost' : 'filled'}
-          onClick={() => {}}
-        />
+      <div style={{ display: "flex", gap: 2 }}>
+        <IconButton icon="star" label="Favourite" iconFilled variant={dark ? "ghost" : "default"} onClick={() => {}} />
+        <IconButton icon="download" label="Download" variant={dark ? "ghost" : "default"} onClick={() => {}} />
+        <IconButton icon="share" label="Share" variant={dark ? "filled" : "filled"} onClick={() => {}} />
       </div>
     </div>
   );
