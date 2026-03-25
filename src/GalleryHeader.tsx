@@ -8,7 +8,11 @@ import { GalleryHeaderProps, TabType } from './types';
  * @param {string} activeTab
  * @param {function} onTabChange
  */
-export function GalleryHeader({ tabs, activeTab, onTabChange }: GalleryHeaderProps) {
+export function GalleryHeader({ tabs, activeTab, onTabChange, onSearch, onFilter, onAccount }: GalleryHeaderProps) {
+  const handleSearch = () => onSearch?.();
+  const handleFilter = () => onFilter?.();
+  const handleAccount = () => onAccount?.();
+
   return (
     <header style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
@@ -39,9 +43,9 @@ export function GalleryHeader({ tabs, activeTab, onTabChange }: GalleryHeaderPro
       </div>
       {/* Actions */}
       <div style={{ display: "flex", gap: 4 }}>
-        <IconButton icon="search" label="Search" onClick={() => {}} />
-        <IconButton icon="tune" label="Filter" onClick={() => {}} />
-        <IconButton icon="account_circle" label="Account" iconFilled onClick={() => {}} />
+        <IconButton icon="search" label="Search" onClick={handleSearch} />
+        <IconButton icon="tune" label="Filter" onClick={handleFilter} />
+        <IconButton icon="account_circle" label="Account" iconFilled onClick={handleAccount} />
       </div>
     </header>
   );
