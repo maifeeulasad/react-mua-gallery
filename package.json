@@ -33,10 +33,15 @@
   ],
   "keywords": [
     "react",
+    "react-component",
     "typescript",
-    "npm",
+    "vite",
     "gallery",
-    "mua",
-    "maifee"
+    "image-gallery",
+    "photo-gallery",
+    "lightbox",
+    "responsive",
+    "ui-component",
+    "portfolio"
   ]
 }
