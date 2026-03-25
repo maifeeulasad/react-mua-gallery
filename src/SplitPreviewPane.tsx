@@ -62,7 +62,7 @@ function useLerpedValue(target: number, durationMs: number) {
  * @param {boolean} hasPrev
  * @param {boolean} hasNext
  */
-export function SplitPreviewPane({ item, isOpen, onClose, onPrev, onNext, hasPrev, hasNext }: SplitPreviewPaneProps) {
+export function SplitPreviewPane({ item, isOpen, onClose, onPrev, onNext, hasPrev, hasNext, onFavorite, onDownload, onShare }: SplitPreviewPaneProps) {
   const progress = useLerpedValue(isOpen ? 1 : 0, LERP_MS);
   const [displayItem, setDisplayItem] = useState(item);
 
@@ -94,7 +94,13 @@ export function SplitPreviewPane({ item, isOpen, onClose, onPrev, onNext, hasPre
     }}>
       {shouldRenderContent && (
         <>
-          <PreviewToolbar item={displayItem!} onClose={onClose} />
+          <PreviewToolbar
+            item={displayItem!}
+            onClose={onClose}
+            onFavorite={onFavorite}
+            onDownload={onDownload}
+            onShare={onShare}
+          />
           <div className="scroll-thin" style={{ flex: 1, overflowY: "auto", padding: "24px 24px 48px" }}>
             <PreviewImage item={displayItem!} onPrev={onPrev} onNext={onNext} hasPrev={hasPrev} hasNext={hasNext} />
             <PreviewMetadata item={displayItem!} />
