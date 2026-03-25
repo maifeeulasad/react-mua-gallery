@@ -102,3 +102,9 @@ export interface PreviewImageProps {
 export interface PreviewMetadataProps {
   item: GalleryItem;
 }
+
+export interface MetaFieldProps {
+  label: string;
+  value: GalleryItem;
+  icon?: string;
+}
