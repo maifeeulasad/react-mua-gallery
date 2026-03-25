@@ -50,3 +50,9 @@ export interface GalleryGridProps {
   onSelect: (id: string) => void;
   compact?: boolean;
 }
+
+export interface GalleryHeaderProps {
+  tabs: TabType[];
+  activeTab: string;
+  onTabChange: (id: string) => void;
+}
