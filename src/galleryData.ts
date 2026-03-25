@@ -1,4 +1,4 @@
-import { GalleryItem } from './types';
+import { GalleryItem, ImageGalleryItem, VideoGalleryItem } from './types';
 
 export const CATEGORIES = [
   { id: 'all', label: 'All', icon: 'grid_view' },
@@ -7,8 +7,7 @@ export const CATEGORIES = [
   { id: 'nature', label: 'Nature', icon: 'nature_people' },
 ];
 
-export const GALLERY_ITEMS: GalleryItem[] = [
-  // November group
+const IMAGE_ITEMS: Omit<ImageGalleryItem, 'mediaType'>[] = [
   {
     id: 'img-1',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZanOqSCaNKVYBud2coSJo2-wNR0noBa4C5o7IYKgJcDhW9IgnAv9o2eL3bYbdr28JiB3EXDWBqgD4pCzFS188qVE2QvPtVZlgc_YAP50geCG825LYvffAP1dDRZz0t24PHhx9Qj-UpzbyRsj7NiZHL9mui3kM4mLFNEqFiZimU7zKL2pQCYR_RiXcSGCEJF0oFpN-LS5ns7BqF2rKzQ1MzMyFH9ss2qMeJLfSdsYtjEqoB8jjLp5odq6ys2gYHpibuoPLEtRvQQ',
@@ -207,12 +206,15 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     alt: 'Dramatic waterfall cascading down dark volcanic rocks',
     span: 'normal',
   },
+];
+
+const VIDEO_ITEMS: VideoGalleryItem[] = [
   {
     id: 'img-12',
-    src: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80',
+    mediaType: 'video',
+    posterSrc: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80',
     thumbnail: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=70',
     videoSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-    mediaType: 'video',
     title: 'City Rooftop Reel',
     filename: 'reel_city_rooftop_001.mp4',
     date: 'Nov 08, 2023',
@@ -229,10 +231,10 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'img-13',
-    src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80',
+    mediaType: 'video',
+    posterSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80',
     thumbnail: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=70',
     videoSrc: 'https://samplelib.com/lib/preview/mp4/sample-10s.mp4',
-    mediaType: 'video',
     title: 'Makeup Timelapse Session',
     filename: 'timelapse_makeup_004.mp4',
     date: 'Sep 26, 2023',
@@ -249,10 +251,10 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'img-14',
-    src: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=1200&q=80',
+    mediaType: 'video',
+    posterSrc: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=1200&q=80',
     thumbnail: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=600&q=70',
     videoSrc: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-    mediaType: 'video',
     title: 'Mirror Selfie Clip',
     filename: 'selfie_mirror_clip_002.mp4',
     date: 'Oct 21, 2023',
@@ -267,6 +269,11 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     alt: 'Portrait selfie video clip in warm indoor light',
     span: 'tall',
   },
+];
+
+export const GALLERY_ITEMS: GalleryItem[] = [
+  ...IMAGE_ITEMS.map((item) => ({ ...item, mediaType: 'image' as const })),
+  ...VIDEO_ITEMS,
 ];
 
 export const GALLERY_GROUPS = [
