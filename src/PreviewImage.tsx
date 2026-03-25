@@ -13,6 +13,7 @@ import { PreviewImageProps } from './types';
  */
 export function PreviewImage({ item, onPrev, onNext, hasPrev, hasNext, dark = false }: PreviewImageProps) {
   const [hovered, setHovered] = useState(false);
+  const isVideo = item.mediaType === 'video' && !!item.videoSrc;
 
   return (
     <div
@@ -26,13 +27,28 @@ export function PreviewImage({ item, onPrev, onNext, hasPrev, hasNext, dark = fa
         minHeight: 240,
       }}
     >
-      <img
-        key={item.id}
-        src={item.src}
-        alt={item.alt}
-        className="scale-in"
-        style={{ width: "100%", maxHeight: "60vh", objectFit: "contain", display: "block" }}
-      />
+      {isVideo ? (
+        <video
+          key={`${item.id}-video`}
+          src={item.videoSrc}
+          poster={item.thumbnail ?? item.src}
+          controls
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="scale-in"
+          style={{ width: "100%", maxHeight: "60vh", objectFit: "contain", display: "block", background: '#000' }}
+        />
+      ) : (
+        <img
+          key={item.id}
+          src={item.src}
+          alt={item.alt}
+          className="scale-in"
+          style={{ width: "100%", maxHeight: "60vh", objectFit: "contain", display: "block" }}
+        />
+      )}
       {/* Nav arrows */}
       {hasPrev && (
         <button
