@@ -1,5 +1,6 @@
 node_modules/
 dist/
+example-dist/
 build/
 
 # more like illustrations, not source code
