@@ -1,26 +1,6 @@
-interface GalleryItem {
-  id: string;
-  group: string;
-  title: string;
-  filename: string;
-  date: string;
-  location: string;
-  camera: string;
-  dimensions: string;
-  category: string;
-  tags: string[];
-  description: string;
-  notes: string;
-  alt: string;
-  src: string;
-  thumbnail?: string;
-}
+import { useState } from "react";
+import { GalleryItemCardProps } from "./types";
 
-interface GalleryItemCardProps {
-  item: GalleryItem;
-  isSelected: boolean;
-  onSelect: (id: string) => void;
-}
 /**
  * GalleryItemCard — single thumbnail in the gallery grid
  * @param {object} item - gallery item data
@@ -28,37 +8,59 @@ interface GalleryItemCardProps {
  * @param {function} onSelect - (id) => void
  */
 export function GalleryItemCard({ item, isSelected, onSelect }: GalleryItemCardProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <button
       onClick={() => onSelect(item.id)}
-      aria-label={`Preview ${item.title}`}
+      aria-label={`Open ${item.title}`}
       aria-pressed={isSelected}
-      className={`
-        relative group w-full overflow-hidden rounded-2xl bg-surface-container
-        transition-all duration-300 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2
-        ${isSelected
-          ? 'ring-2 ring-primary ring-offset-2 ring-offset-surface scale-[0.98]'
-          : 'hover:scale-[1.02] hover:shadow-lg hover:shadow-on-surface/10'
-        }
-      `}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: "relative", display: "block", width: "100%",
+        aspectRatio: "1 / 1",
+        borderRadius: 16, overflow: "hidden",
+        border: "none", cursor: "pointer", padding: 0,
+        background: "var(--surface-container)",
+        outline: isSelected ? "2px solid var(--primary)" : "none",
+        outlineOffset: 2,
+        transform: isSelected ? "scale(0.975)" : hovered ? "scale(1.02)" : "scale(1)",
+        boxShadow: hovered && !isSelected ? "0 8px 24px rgba(44,52,55,0.12)" : "none",
+        transition: "transform 280ms ease, box-shadow 280ms ease, outline 150ms ease",
+      }}
     >
-      <div className="aspect-square">
-        <img
-          src={item.thumbnail}
-          alt={item.alt}
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-
-      {/* Selected overlay */}
+      <img
+        src={item.src}
+        alt={item.alt}
+        loading="lazy"
+        style={{
+          width: "100%", height: "100%", objectFit: "cover",
+          transform: hovered ? "scale(1.06)" : "scale(1)",
+          transition: "transform 500ms ease",
+          display: "block",
+        }}
+      />
+      {/* Selected tint */}
       {isSelected && (
-        <div className="absolute inset-0 bg-primary/10 pointer-events-none" />
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "rgba(68,95,138,0.15)",
+          pointerEvents: "none",
+        }} />
       )}
-
-      {/* Hover info overlay */}
-      <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-        <p className="text-white text-xs font-medium font-label truncate">{item.title}</p>
+      {/* Hover title bar */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0,
+        padding: "24px 10px 10px",
+        background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)",
+        opacity: hovered ? 1 : 0,
+        transition: "opacity 250ms ease",
+        pointerEvents: "none",
+      }}>
+        <p style={{ color: "#fff", fontSize: 11, fontWeight: 500, fontFamily: "var(--font-body)", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+          {item.title}
+        </p>
       </div>
     </button>
   );
