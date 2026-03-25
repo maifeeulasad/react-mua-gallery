@@ -70,3 +70,11 @@ export interface GallerySectionProps {
   onSelect: (id: string) => void;
   compact?: boolean;
 }
+
+export interface IconProps {
+  name: string;
+  className?: string;
+  filled?: boolean;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  style?: React.CSSProperties;
+}
