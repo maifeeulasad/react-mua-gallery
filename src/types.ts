@@ -89,3 +89,12 @@ export interface IconButtonProps {
   className?: string;
   disabled?: boolean;
 }
+
+export interface PreviewImageProps {
+  item: GalleryItem;
+  onPrev: () => void;
+  onNext: () => void;
+  hasPrev: boolean;
+  hasNext: boolean;
+  dark?: boolean;
+}
