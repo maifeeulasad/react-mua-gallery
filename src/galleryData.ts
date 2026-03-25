@@ -1,3 +1,5 @@
+import { GalleryItem } from './types';
+
 export const CATEGORIES = [
   { id: 'all', label: 'All', icon: 'grid_view' },
   { id: 'people', label: 'People', icon: 'group' },
@@ -5,7 +7,7 @@ export const CATEGORIES = [
   { id: 'nature', label: 'Nature', icon: 'nature_people' },
 ];
 
-export const GALLERY_ITEMS = [
+export const GALLERY_ITEMS: GalleryItem[] = [
   // November group
   {
     id: 'img-1',
@@ -205,10 +207,70 @@ export const GALLERY_ITEMS = [
     alt: 'Dramatic waterfall cascading down dark volcanic rocks',
     span: 'normal',
   },
+  {
+    id: 'img-12',
+    src: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=70',
+    videoSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    mediaType: 'video',
+    title: 'City Rooftop Reel',
+    filename: 'reel_city_rooftop_001.mp4',
+    date: 'Nov 08, 2023',
+    location: 'New York, USA',
+    camera: 'iPhone 15 Pro',
+    dimensions: '3840 x 2160 px',
+    description: 'Short rooftop video clip during a vibrant blue-hour skyline.',
+    notes: 'Captured handheld and stabilized in post for a smooth social reel format.',
+    tags: ['Video', 'City', 'Reel'],
+    category: 'selfies',
+    group: 'November',
+    alt: 'Blue-hour city skyline from rooftop captured as a video reel',
+    span: 'wide',
+  },
+  {
+    id: 'img-13',
+    src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=70',
+    videoSrc: 'https://samplelib.com/lib/preview/mp4/sample-10s.mp4',
+    mediaType: 'video',
+    title: 'Makeup Timelapse Session',
+    filename: 'timelapse_makeup_004.mp4',
+    date: 'Sep 26, 2023',
+    location: 'Studio',
+    camera: 'Sony ZV-E10',
+    dimensions: '1920 x 1080 px',
+    description: 'Behind-the-scenes portrait prep captured as a short timelapse.',
+    notes: 'Natural key light with a soft fill; exported for quick portfolio preview.',
+    tags: ['Video', 'People', 'BTS'],
+    category: 'people',
+    group: 'People',
+    alt: 'Studio makeup timelapse of portrait preparation',
+    span: 'normal',
+  },
+  {
+    id: 'img-14',
+    src: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=1200&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=600&q=70',
+    videoSrc: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+    mediaType: 'video',
+    title: 'Mirror Selfie Clip',
+    filename: 'selfie_mirror_clip_002.mp4',
+    date: 'Oct 21, 2023',
+    location: 'Los Angeles, CA',
+    camera: 'Samsung S23 Ultra',
+    dimensions: '1080 x 1920 px',
+    description: 'Portrait-oriented selfie video with soft indoor lighting.',
+    notes: 'Recorded for quick style references and skin-tone checks under warm light.',
+    tags: ['Video', 'Selfie', 'Portrait'],
+    category: 'selfies',
+    group: 'October',
+    alt: 'Portrait selfie video clip in warm indoor light',
+    span: 'tall',
+  },
 ];
 
 export const GALLERY_GROUPS = [
-  { id: 'november', label: 'November', count: 3 },
-  { id: 'people', label: 'People', count: 3 },
-  { id: 'october', label: 'October', count: 5 },
+  { id: 'november', label: 'November', count: 4 },
+  { id: 'people', label: 'People', count: 4 },
+  { id: 'october', label: 'October', count: 6 },
 ];
