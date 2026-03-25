@@ -11,8 +11,9 @@
     "pnpm": ">=10"
   },
   "scripts": {
-    "build": "rollup -c",
-    "start": "rollup -c -w"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "peerDependencies": {
     "react": ">= 16.8.0 <= 19.2",
