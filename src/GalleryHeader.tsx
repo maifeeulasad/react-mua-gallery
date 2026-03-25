@@ -1,15 +1,6 @@
 
 import { IconButton } from './IconButton';
-interface TabType {
-  id: string;
-  label: string;
-  icon: string;
-}
-interface GalleryHeaderProps {
-  tabs: TabType[];
-  activeTab: string;
-  onTabChange: (id: string) => void;
-}
+import { GalleryHeaderProps, TabType } from './types';
 
 /**
  * GalleryHeader — top navigation bar
@@ -19,38 +10,38 @@ interface GalleryHeaderProps {
  */
 export function GalleryHeader({ tabs, activeTab, onTabChange }: GalleryHeaderProps) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20">
-      {/* Logo */}
-      <div className="flex items-center gap-8">
-        <span className="font-headline font-extrabold text-xl tracking-tighter text-on-surface">
+    <header style={{
+      position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+      height: 64, display: "flex", alignItems: "center", justifyContent: "space-between",
+      padding: "0 24px",
+      background: "rgba(248,249,250,0.85)",
+      backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+      borderBottom: "1px solid rgba(171,179,183,0.25)",
+    }}>
+      {/* Logo + Desktop tabs */}
+      <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+        <span style={{ fontFamily: "var(--font-headline)", fontWeight: 800, fontSize: 20, letterSpacing: "-0.03em", color: "var(--on-surface)" }}>
           Curator
         </span>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex gap-1">
-          {tabs.map((tab: TabType) => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`
-                px-4 py-1.5 rounded-full text-sm font-medium font-body transition-all duration-200
-                ${activeTab === tab.id
-                  ? 'bg-primary-container text-on-primary-container'
-                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container'
-                }
-              `}
-            >
-              {tab.label}
+        <nav style={{ display: "flex", gap: 4 }} className="desktop-nav">
+          {tabs.map((t: TabType) => (
+            <button key={t.id} onClick={() => onTabChange(t.id)} style={{
+              padding: "6px 16px", borderRadius: "var(--radius-full)", border: "none", cursor: "pointer",
+              fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 500,
+              background: activeTab === t.id ? "var(--primary-container)" : "transparent",
+              color: activeTab === t.id ? "var(--on-primary-container)" : "var(--on-surface-variant)",
+              transition: "all 200ms ease",
+            }}>
+              {t.label}
             </button>
           ))}
         </nav>
       </div>
-
       {/* Actions */}
-      <div className="flex items-center gap-1">
+      <div style={{ display: "flex", gap: 4 }}>
         <IconButton icon="search" label="Search" onClick={() => {}} />
         <IconButton icon="tune" label="Filter" onClick={() => {}} />
-        <IconButton icon="account_circle" label="Account" size="md" iconFilled onClick={() => {}} />
+        <IconButton icon="account_circle" label="Account" iconFilled onClick={() => {}} />
       </div>
     </header>
   );
