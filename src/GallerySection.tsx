@@ -1,29 +1,5 @@
-interface GalleryItem {
-  id: string;
-  group: string;
-  title: string;
-  filename: string;
-  date: string;
-  location: string;
-  camera: string;
-  dimensions: string;
-  category: string;
-  tags: string[];
-  description: string;
-  notes: string;
-  alt: string;
-  src: string;
-}
-
-interface GallerySectionProps {
-  label: string;
-  count: number;
-  items: GalleryItem[];
-  selectedId: string | null;
-  onSelect: (id: string) => void;
-  compact?: boolean;
-}
 import { GalleryGrid } from './GalleryGrid';
+import { GallerySectionProps } from './types';
 
 /**
  * GallerySection — a labeled group of images (e.g. "November")
@@ -34,19 +10,18 @@ import { GalleryGrid } from './GalleryGrid';
  * @param {function} onSelect
  * @param {boolean} compact
  */
-export function GallerySection({ label, count, items, selectedId, onSelect, compact }: GallerySectionProps) {
+export function GallerySection({ label, items, selectedId, onSelect, compact }: GallerySectionProps) {
   if (!items.length) return null;
-
   return (
-    <section className="mb-10">
-      <header className="flex items-baseline justify-between mb-4">
-        <h2 className="font-headline font-extrabold text-xl tracking-tight text-on-surface">
+    <section style={{ marginBottom: 40 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 14 }}>
+        <h2 style={{ fontFamily: "var(--font-headline)", fontWeight: 800, fontSize: 20, letterSpacing: "-0.02em", color: "var(--on-surface)" }}>
           {label}
         </h2>
-        <span className="text-xs font-medium text-on-surface-variant font-label">
-          {count} items
+        <span style={{ fontSize: 12, fontWeight: 500, color: "var(--on-surface-variant)" }}>
+          {items.length} items
         </span>
-      </header>
+      </div>
       <GalleryGrid items={items} selectedId={selectedId} onSelect={onSelect} compact={compact} />
     </section>
   );
