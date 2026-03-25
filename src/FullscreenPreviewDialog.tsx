@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import { Icon } from './Icon';
 import { IconButton } from './IconButton';
+import { FullscreenPreviewDialogProps } from './types';
 
 
 /**
@@ -13,131 +15,120 @@ import { IconButton } from './IconButton';
  * @param {boolean} hasNext
  * @param {string} dateLabel
  */
-interface GalleryItem {
-  id: string;
-  group: string;
-  title: string;
-  filename: string;
-  date: string;
-  location: string;
-  camera: string;
-  dimensions: string;
-  category: string;
-  tags: string[];
-  description: string;
-  notes: string;
-  alt: string;
-  src: string;
-}
-interface FullscreenPreviewDialogProps {
-  item: GalleryItem | null;
-  isOpen: boolean;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-  hasPrev: boolean;
-  hasNext: boolean;
-}
-export function FullscreenPreviewDialog({
-  item,
-  isOpen,
-  onClose,
-  onPrev,
-  onNext,
-  hasPrev,
-  hasNext,
-}: FullscreenPreviewDialogProps) {
+export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext, hasPrev, hasNext }: FullscreenPreviewDialogProps) {
+  // Touch swipe support
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(diff) > 50) { diff < 0 ? onNext() : onPrev(); }
+    touchStartX.current = null;
+  };
+
   if (!isOpen || !item) return null;
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={`Preview: ${item.title}`}
-      className="fixed inset-0 z-[100] bg-black flex flex-col"
-      style={{ animation: 'fadeIn 200ms ease' }}
+      role="dialog" aria-modal="true" aria-label={`Preview: ${item.title}`}
+      className="fade-in"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      style={{
+        position: "fixed", inset: 0, zIndex: 100,
+        background: "#000",
+        display: "flex", flexDirection: "column",
+      }}
     >
-      {/* Top bar */}
-      <header className="flex items-center justify-between px-5 py-4 bg-gradient-to-b from-black/70 to-transparent absolute top-0 left-0 right-0 z-10">
+      {/* Top bar gradient */}
+      <header style={{
+        position: "absolute", top: 0, left: 0, right: 0, zIndex: 10,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "20px 20px 40px",
+        background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%)",
+      }}>
         <IconButton icon="arrow_back" label="Back" onClick={onClose} variant="ghost" />
-        <div className="flex flex-col items-center">
-          <span className="font-headline font-bold text-sm text-white tracking-tight">{item.date}</span>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ fontFamily: "var(--font-headline)", fontWeight: 700, fontSize: 13, color: "#fff", letterSpacing: "-0.01em" }}>
+            {item.date}
+          </div>
           {item.location && (
-            <span className="text-[10px] text-white/60 font-label uppercase tracking-widest">
+            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.55)", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 1 }}>
               {item.location}
-            </span>
+            </div>
           )}
         </div>
-        <IconButton icon="more_vert" label="More options" variant="ghost" onClick={() => {}} />
+        <IconButton icon="more_vert" label="More" variant="ghost" onClick={() => {}} />
       </header>
 
       {/* Image */}
-      <div className="flex-1 flex items-center justify-center relative">
-        <img
-          key={item.id}
-          src={item.src}
-          alt={item.alt}
-          className="w-full h-full object-contain"
-          style={{ maxHeight: '100vh' }}
-        />
-
-        {/* Side nav arrows */}
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+        <img key={item.id} src={item.src} alt={item.alt} className="fade-in"
+          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
         {hasPrev && (
-          <button
-            onClick={onPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 backdrop-blur flex items-center justify-center text-white active:scale-90 transition-transform"
-          >
+          <button onClick={onPrev} style={{
+            position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)",
+            width: 40, height: 40, borderRadius: "50%", border: "none", cursor: "pointer",
+            background: "rgba(0,0,0,0.3)", backdropFilter: "blur(8px)",
+            color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
             <Icon name="chevron_left" />
           </button>
         )}
         {hasNext && (
-          <button
-            onClick={onNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 backdrop-blur flex items-center justify-center text-white active:scale-90 transition-transform"
-          >
+          <button onClick={onNext} style={{
+            position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)",
+            width: 40, height: 40, borderRadius: "50%", border: "none", cursor: "pointer",
+            background: "rgba(0,0,0,0.3)", backdropFilter: "blur(8px)",
+            color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
             <Icon name="chevron_right" />
           </button>
         )}
       </div>
 
       {/* Bottom bar */}
-      <footer className="absolute bottom-0 left-0 right-0 flex flex-col items-center gap-5 pb-10 pt-4 bg-gradient-to-t from-black/70 to-transparent">
-        {/* Dots indicator */}
-        <div className="flex gap-1.5 items-center">
-          {hasPrev && <div className="w-1.5 h-1.5 rounded-full bg-white/30" />}
-          <div className="w-2 h-2 rounded-full bg-white" />
-          {hasNext && <div className="w-1.5 h-1.5 rounded-full bg-white/30" />}
+      <footer style={{
+        position: "absolute", bottom: 0, left: 0, right: 0,
+        display: "flex", flexDirection: "column", alignItems: "center", gap: 18,
+        padding: "32px 24px 40px",
+        background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
+      }}>
+        {/* Dot indicators */}
+        <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+          {hasPrev && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "rgba(255,255,255,0.3)" }} />}
+          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#fff" }} />
+          {hasNext && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "rgba(255,255,255,0.3)" }} />}
         </div>
 
         {/* Action row */}
-        <nav className="flex items-center gap-8 px-8 py-3.5 bg-black/30 backdrop-blur-xl rounded-[2rem] border border-white/10">
-          <FullscreenAction icon="favorite" label="Like" />
-          <FullscreenAction icon="info" label="Info" />
-          <FullscreenAction icon="share" label="Send" />
-          <FullscreenAction icon="delete" label="Bin" danger />
-        </nav>
+        <div style={{
+          display: "flex", alignItems: "center", gap: 36,
+          padding: "14px 32px",
+          background: "rgba(0,0,0,0.35)", backdropFilter: "blur(20px)",
+          borderRadius: 32, border: "1px solid rgba(255,255,255,0.1)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+        }}>
+          {[
+            { icon: "favorite", label: "Like" },
+            { icon: "info", label: "Info" },
+            { icon: "share", label: "Send" },
+            { icon: "delete", label: "Bin", danger: true },
+          ].map(({ icon, label, danger }) => (
+            <button key={icon} style={{
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
+              background: "none", border: "none", cursor: "pointer",
+              color: danger ? "var(--error-container)" : "rgba(255,255,255,0.8)",
+            }}>
+              <Icon name={icon} size="md" />
+              <span style={{ fontSize: 9, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.7, fontFamily: "var(--font-body)" }}>
+                {label}
+              </span>
+            </button>
+          ))}
+        </div>
       </footer>
     </div>
-  );
-}
-
-interface FullscreenActionProps {
-  icon: string;
-  label: string;
-  danger?: boolean;
-}
-function FullscreenAction({ icon, label, danger = false }: FullscreenActionProps) {
-  return (
-    <button className="flex flex-col items-center gap-1 group active:scale-90 transition-transform">
-      <span
-        className={`material-symbols-outlined ${danger ? 'text-error-container' : 'text-white/80'}`}
-        style={{ fontVariationSettings: "'FILL' 0, 'wght' 400" }}
-      >
-        {icon}
-      </span>
-      <span className={`text-[9px] font-medium tracking-widest uppercase font-label ${danger ? 'text-error-container/70' : 'text-white/50'}`}>
-        {label}
-      </span>
-    </button>
   );
 }
