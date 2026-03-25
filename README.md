@@ -1,58 +1,133 @@
 # react-mua-gallery
 
-> Just another Gallery template for React.js
+A modern React gallery component with adaptive preview modes (split pane on desktop, fullscreen on smaller screens).
 
-[![NPM](https://img.shields.io/npm/v/react-mua-gallery.svg)](https://www.npmjs.com/package/react-mua-gallery) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![npm version](https://img.shields.io/npm/v/react-mua-gallery.svg)](https://www.npmjs.com/package/react-mua-gallery)
 
-## Install
+## Features
+
+- React 16.8+ through React 19 support
+- Adaptive preview UX: split pane and fullscreen dialog
+- Keyboard navigation (`ArrowLeft`, `ArrowRight`, `Escape`)
+- Typed callback props for header and preview actions
+- Vite-powered example build and library build
+
+## Installation
 
 ```bash
-npm install --save react-mua-gallery
+npm install react-mua-gallery
 ```
 
-## Usage
+or
 
-```jsx
-import React, { Component } from 'react'
-
-import Gallery from "react-mua-gallery";
-// @ts-ignore
-import "react-mua-gallery/dist/dist/index.css";
-
-ReactDOM.render(
-  <React.StrictMode>
-        <Gallery
-          galleryName={"Your Gallery Name"}
-          owner={"YOU"}
-          slogan={
-            "Something that represents you"
-          }
-          licenseLink={"https://github.com/maifeeulasad/react-mua-gallery/blob/main/LICENSE"}
-          socials={[
-            { socialNetwork: "github", socialHandle: "maifeeulasad" },
-            ...
-          ]}
-          images={[
-            {
-              url:
-                "https://raw.githubusercontent.com/maifeeulasad/Icon-collection/master/background/horizontal/blurry/01.jpg",
-              title: "A beatiful title for a beautiful image",
-              details: "Something that opens the third eye"
-            },
-            ...
-          ]}
-          licenseTitle={"MIT License"}
-        />
-  </React.StrictMode>
-, document.getElementById('root'))
-
+```bash
+pnpm add react-mua-gallery
 ```
 
-# Sample : 
- - https://maifeeulasad.github.io/react-mua-gallery/
- - https://codesandbox.io/s/react-mua-gallery-example-onh3e?file=/src/index.js
+## Quick Start
 
-![react-mua-gallery](https://github.com/maifeeulasad/react-mua-gallery/blob/gh-pages/Screenshot.png)
+```tsx
+import { Gallery } from 'react-mua-gallery';
+
+export default function App() {
+  return <Gallery />;
+}
+```
+
+## Configurable Props
+
+`Gallery` is a named export and accepts the following props:
+
+```ts
+type GalleryProps = {
+  galleryTitle?: string;
+  onSearch?: () => void;
+  onFilter?: () => void;
+  onAccount?: () => void;
+  onPreviewMore?: (item: GalleryItem) => void;
+  onPreviewFavorite?: (item: GalleryItem) => void;
+  onPreviewDownload?: (item: GalleryItem) => void;
+  onPreviewInfo?: (item: GalleryItem) => void;
+  onPreviewShare?: (item: GalleryItem) => void;
+  onPreviewDelete?: (item: GalleryItem) => void;
+};
+```
+
+### Example With Actions
+
+```tsx
+import { Gallery } from 'react-mua-gallery';
+
+export default function App() {
+  return (
+    <Gallery
+      galleryTitle="React MUA Gallery"
+      onSearch={() => console.log('search')}
+      onFilter={() => console.log('filter')}
+      onAccount={() => console.log('account')}
+      onPreviewMore={(item) => console.log('more', item.id)}
+      onPreviewFavorite={(item) => console.log('favorite', item.id)}
+      onPreviewDownload={(item) => console.log('download', item.src)}
+      onPreviewInfo={(item) => console.log('info', item.title)}
+      onPreviewShare={(item) => console.log('share', item.id)}
+      onPreviewDelete={(item) => console.log('delete', item.id)}
+    />
+  );
+}
+```
+
+## Exports
+
+Main export:
+
+- `Gallery`
+
+Additional exports:
+
+- `BottomNav`
+- `FullscreenPreviewDialog`
+- `GalleryGrid`
+- `GalleryHeader`
+- `GalleryItemCard`
+- `GallerySection`
+- `Icon`
+- `IconButton`
+- `PreviewImage`
+- `PreviewMetadata`
+- `PreviewToolbar`
+- `SplitPreviewPane`
+- `CATEGORIES`, `GALLERY_GROUPS`, `GALLERY_ITEMS`
+- `useGalleryState`, `useKeyboardNav`, `useViewportMode`
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Build
+
+Library build:
+
+```bash
+pnpm run build:lib
+```
+
+Static example build:
+
+```bash
+pnpm run build:example
+```
+
+## GitHub Actions
+
+- GitHub Pages deployment workflow: `.github/workflows/deploy-pages.yml`
+- npm publish workflow: `.github/workflows/publish-npm.yaml`
+
+## Live Example
+
+- https://maifeeulasad.github.io/react-mua-gallery/
 
 ## License
 
