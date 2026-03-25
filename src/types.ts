@@ -108,3 +108,10 @@ export interface MetaFieldProps {
   value: GalleryItem;
   icon?: string;
 }
+
+export interface PreviewToolbarProps {
+  item: GalleryItem;
+  onClose: () => void;
+  isFullscreen?: boolean;
+  dark?: boolean;
+}
