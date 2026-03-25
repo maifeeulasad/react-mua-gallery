@@ -78,3 +78,14 @@ export interface IconProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   style?: React.CSSProperties;
 }
+
+export interface IconButtonProps {
+  icon: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  label?: string;
+  variant?: 'default' | 'filled' | 'ghost' | 'error';
+  size?: 'sm' | 'md' | 'lg';
+  iconFilled?: boolean;
+  className?: string;
+  disabled?: boolean;
+}
