@@ -7,7 +7,19 @@ import { PreviewToolbarProps } from './types';
  * @param {function} onClose
  * @param {boolean} isFullscreen - adjusts styling
  */
-export function PreviewToolbar({ item, onClose, dark = false }: PreviewToolbarProps) {
+export function PreviewToolbar({ item, onClose, dark = false, onFavorite, onDownload, onShare }: PreviewToolbarProps) {
+  const handleFavorite = () => {
+    if (item) onFavorite?.(item);
+  };
+
+  const handleDownload = () => {
+    if (item) onDownload?.(item);
+  };
+
+  const handleShare = () => {
+    if (item) onShare?.(item);
+  };
+
   return (
     <div style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -26,9 +38,9 @@ export function PreviewToolbar({ item, onClose, dark = false }: PreviewToolbarPr
         </span>
       </div>
       <div style={{ display: "flex", gap: 2 }}>
-        <IconButton icon="star" label="Favourite" iconFilled variant={dark ? "ghost" : "default"} onClick={() => {}} />
-        <IconButton icon="download" label="Download" variant={dark ? "ghost" : "default"} onClick={() => {}} />
-        <IconButton icon="share" label="Share" variant={dark ? "filled" : "filled"} onClick={() => {}} />
+        <IconButton icon="star" label="Favourite" iconFilled variant={dark ? "ghost" : "default"} onClick={handleFavorite} />
+        <IconButton icon="download" label="Download" variant={dark ? "ghost" : "default"} onClick={handleDownload} />
+        <IconButton icon="share" label="Share" variant={dark ? "filled" : "filled"} onClick={handleShare} />
       </div>
     </div>
   );
