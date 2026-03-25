@@ -1,4 +1,5 @@
 import { Icon } from './Icon';
+import { BottomNavProps, TabType } from './types';
 
 /**
  * BottomNav — mobile-only bottom navigation
@@ -6,41 +7,30 @@ import { Icon } from './Icon';
  * @param {string} activeTab
  * @param {function} onTabChange
  */
-interface TabType {
-  id: string;
-  label: string;
-  icon: string;
-}
-interface BottomNavProps {
-  tabs: TabType[];
-  activeTab: string;
-  onTabChange: (id: string) => void;
-}
 export function BottomNav({ tabs, activeTab, onTabChange }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around items-center px-4 pb-6 pt-3 bg-surface/80 backdrop-blur-xl border-t border-outline-variant/20 rounded-t-3xl">
-      {tabs.map((tab: TabType) => {
-        const active = activeTab === tab.id;
+    <nav style={{
+      position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 50,
+      display: "flex", justifyContent: "space-around", alignItems: "center",
+      padding: "12px 16px 20px",
+      background: "rgba(248,249,250,0.88)",
+      backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+      borderTop: "1px solid rgba(171,179,183,0.2)",
+      borderRadius: "24px 24px 0 0",
+    }} className="mobile-only">
+      {tabs.map((t: TabType) => {
+        const active = activeTab === t.id;
         return (
-          <button
-            key={tab.id}
-            onClick={() => onTabChange(tab.id)}
-            className={`flex flex-col items-center gap-1 px-4 py-1.5 rounded-2xl transition-all duration-200 active:scale-95 ${
-              active ? 'bg-primary-container/60' : ''
-            }`}
-          >
-            <Icon
-              name={tab.icon}
-              filled={active}
-              className={active ? 'text-primary' : 'text-on-surface-variant'}
-              size="md"
-            />
-            <span
-              className={`text-[10px] font-medium font-label tracking-wide ${
-                active ? 'text-primary' : 'text-on-surface-variant'
-              }`}
-            >
-              {tab.label}
+          <button key={t.id} onClick={() => onTabChange(t.id)} style={{
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+            padding: "8px 16px", borderRadius: 16, border: "none", cursor: "pointer",
+            background: active ? "rgba(68,95,138,0.12)" : "transparent",
+            color: active ? "var(--primary)" : "var(--on-surface-variant)",
+            transition: "all 200ms ease",
+          }}>
+            <Icon name={t.icon} filled={active} size="md" />
+            <span style={{ fontSize: 10, fontWeight: 500, fontFamily: "var(--font-body)", letterSpacing: "0.04em" }}>
+              {t.label}
             </span>
           </button>
         );
