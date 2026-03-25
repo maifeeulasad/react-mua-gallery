@@ -1,6 +1,7 @@
 import { PreviewToolbar } from './PreviewToolbar';
 import { PreviewImage } from './PreviewImage';
 import { PreviewMetadata } from './PreviewMetadata';
+import { SplitPreviewPaneProps } from './types';
 
 /**
  * SplitPreviewPane — desktop side-by-side preview pane
@@ -12,36 +13,23 @@ import { PreviewMetadata } from './PreviewMetadata';
  * @param {boolean} hasPrev
  * @param {boolean} hasNext
  */
-interface SplitPreviewPaneProps {
-  item: any;
-  isOpen: boolean;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-  hasPrev: boolean;
-  hasNext: boolean;
-}
-
 export function SplitPreviewPane({ item, isOpen, onClose, onPrev, onNext, hasPrev, hasNext }: SplitPreviewPaneProps) {
   return (
-    <aside
-      className={`
-        h-full flex flex-col bg-surface border-l border-outline-variant/20
-        transition-all duration-300 overflow-hidden
-        ${isOpen ? 'w-[55%] opacity-100' : 'w-0 opacity-0'}
-      `}
-    >
-      {item && (
+    <aside style={{
+      height: "100%", display: "flex", flexDirection: "column",
+      background: "var(--surface)",
+      borderLeft: "1px solid rgba(171,179,183,0.2)",
+      overflow: "hidden",
+      width: isOpen ? "55%" : 0,
+      opacity: isOpen ? 1 : 0,
+      transition: "width 300ms cubic-bezier(0.4,0,0.2,1), opacity 300ms ease",
+      flexShrink: 0,
+    }}>
+      {item && isOpen && (
         <>
           <PreviewToolbar item={item} onClose={onClose} />
-          <div className="flex-1 overflow-y-auto p-6 pb-10 custom-scrollbar">
-            <PreviewImage
-              item={item}
-              onPrev={onPrev}
-              onNext={onNext}
-              hasPrev={hasPrev}
-              hasNext={hasNext}
-            />
+          <div className="scroll-thin" style={{ flex: 1, overflowY: "auto", padding: "24px 24px 48px" }}>
+            <PreviewImage item={item} onPrev={onPrev} onNext={onNext} hasPrev={hasPrev} hasNext={hasNext} />
             <PreviewMetadata item={item} />
           </div>
         </>
