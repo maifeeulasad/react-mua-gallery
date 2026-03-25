@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
         outDir: 'dist',
         lib: {
           entry: 'src/index.tsx',
+          name: 'ReactMUAGallery',
           fileName: (format) => `index.${format}.js`,
         },
         rollupOptions: {
