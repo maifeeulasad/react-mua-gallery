@@ -62,3 +62,11 @@ export interface GalleryItemCardProps {
   isSelected: boolean;
   onSelect: (id: string) => void;
 }
+
+export interface GallerySectionProps {
+  label: string;
+  items: GalleryItem[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  compact?: boolean;
+}
