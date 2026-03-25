@@ -43,3 +43,10 @@ export interface FullscreenActionProps {
   label: string;
   danger?: boolean;
 }
+
+export interface GalleryGridProps {
+  items: GalleryItem[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  compact?: boolean;
+}
