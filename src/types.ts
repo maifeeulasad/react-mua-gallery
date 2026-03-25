@@ -14,6 +14,9 @@ export interface GalleryItem {
   alt: string;
   src: string;
   thumbnail?: string;
+  span?: 'normal' | 'wide' | 'tall';
+  mediaType?: 'image' | 'video';
+  videoSrc?: string;
 }
 
 export interface TabType {
