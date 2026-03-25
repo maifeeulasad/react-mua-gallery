@@ -56,3 +56,9 @@ export interface GalleryHeaderProps {
   activeTab: string;
   onTabChange: (id: string) => void;
 }
+
+export interface GalleryItemCardProps {
+  item: GalleryItem;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
+}
