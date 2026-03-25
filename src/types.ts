@@ -115,3 +115,13 @@ export interface PreviewToolbarProps {
   isFullscreen?: boolean;
   dark?: boolean;
 }
+
+export interface SplitPreviewPaneProps {
+  item: GalleryItem;
+  isOpen: boolean;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+  hasPrev: boolean;
+  hasNext: boolean;
+}
