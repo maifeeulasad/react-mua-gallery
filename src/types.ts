@@ -98,3 +98,7 @@ export interface PreviewImageProps {
   hasNext: boolean;
   dark?: boolean;
 }
+
+export interface PreviewMetadataProps {
+  item: GalleryItem;
+}
