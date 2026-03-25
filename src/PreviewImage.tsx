@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Icon } from './Icon';
 import { PreviewImageProps } from './types';
+import { isVideoGalleryItem } from './utils';
 
 /**
  * PreviewImage — the large image display with nav arrow overlays
@@ -13,7 +14,7 @@ import { PreviewImageProps } from './types';
  */
 export function PreviewImage({ item, onPrev, onNext, hasPrev, hasNext, dark = false }: PreviewImageProps) {
   const [hovered, setHovered] = useState(false);
-  const isVideo = item.mediaType === 'video' && !!item.videoSrc;
+  const isVideo = isVideoGalleryItem(item);
 
   return (
     <div
@@ -31,7 +32,7 @@ export function PreviewImage({ item, onPrev, onNext, hasPrev, hasNext, dark = fa
         <video
           key={`${item.id}-video`}
           src={item.videoSrc}
-          poster={item.thumbnail ?? item.src}
+          poster={item.thumbnail ?? item.posterSrc}
           controls
           autoPlay
           muted

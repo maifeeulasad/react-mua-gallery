@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Icon } from "./Icon";
 import { GalleryItemCardProps } from "./types";
+import { isVideoGalleryItem } from "./utils";
 
 /**
  * GalleryItemCard — single thumbnail in the gallery grid
@@ -10,8 +11,10 @@ import { GalleryItemCardProps } from "./types";
  */
 export function GalleryItemCard({ item, isSelected, onSelect }: GalleryItemCardProps) {
   const [hovered, setHovered] = useState(false);
-  const isVideo = item.mediaType === "video" && !!item.videoSrc;
-  const previewSrc = item.thumbnail ?? item.src;
+  const isVideo = isVideoGalleryItem(item);
+  const previewSrc = isVideo
+    ? item.thumbnail ?? item.posterSrc ?? ""
+    : item.thumbnail ?? item.src;
 
   return (
     <button

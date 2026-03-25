@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Icon } from './Icon';
 import { IconButton } from './IconButton';
 import { FullscreenPreviewDialogProps } from './types';
+import { isVideoGalleryItem } from './utils';
 
 
 /**
@@ -28,7 +29,7 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
   };
 
   if (!isOpen || !item) return null;
-  const isVideo = item.mediaType === 'video' && !!item.videoSrc;
+  const isVideo = isVideoGalleryItem(item);
 
   const handleMore = () => onMore?.(item);
   const handleLike = () => onLike?.(item);
@@ -75,7 +76,7 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
           <video
             key={`${item.id}-video`}
             src={item.videoSrc}
-            poster={item.thumbnail ?? item.src}
+            poster={item.thumbnail ?? item.posterSrc}
             controls
             autoPlay
             muted
