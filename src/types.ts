@@ -21,3 +21,9 @@ export interface TabType {
   label: string;
   icon: string;
 }
+
+export interface BottomNavProps {
+  tabs: TabType[];
+  activeTab: string;
+  onTabChange: (id: string) => void;
+}
