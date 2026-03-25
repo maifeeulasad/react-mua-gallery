@@ -15,3 +15,9 @@ export interface GalleryItem {
   src: string;
   thumbnail?: string;
 }
+
+export interface TabType {
+  id: string;
+  label: string;
+  icon: string;
+}
