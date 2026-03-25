@@ -36,6 +36,11 @@ export interface FullscreenPreviewDialogProps {
   onNext: () => void;
   hasPrev: boolean;
   hasNext: boolean;
+  onMore?: (item: GalleryItem) => void;
+  onLike?: (item: GalleryItem) => void;
+  onInfo?: (item: GalleryItem) => void;
+  onShare?: (item: GalleryItem) => void;
+  onDelete?: (item: GalleryItem) => void;
 }
 
 export interface FullscreenActionProps {
@@ -55,6 +60,9 @@ export interface GalleryHeaderProps {
   tabs: TabType[];
   activeTab: string;
   onTabChange: (id: string) => void;
+  onSearch?: () => void;
+  onFilter?: () => void;
+  onAccount?: () => void;
 }
 
 export interface GalleryItemCardProps {
@@ -114,6 +122,9 @@ export interface PreviewToolbarProps {
   onClose: () => void;
   isFullscreen?: boolean;
   dark?: boolean;
+  onFavorite?: (item: GalleryItem) => void;
+  onDownload?: (item: GalleryItem) => void;
+  onShare?: (item: GalleryItem) => void;
 }
 
 export interface SplitPreviewPaneProps {
@@ -124,6 +135,9 @@ export interface SplitPreviewPaneProps {
   onNext: () => void;
   hasPrev: boolean;
   hasNext: boolean;
+  onFavorite?: (item: GalleryItem) => void;
+  onDownload?: (item: GalleryItem) => void;
+  onShare?: (item: GalleryItem) => void;
 }
 
 export interface KeyboardNavProps {
@@ -142,5 +156,23 @@ export interface AdaptivePreviewControllerProps {
   onNext: () => void;
   hasPrev: boolean;
   hasNext: boolean;
+  onPreviewMore?: (item: GalleryItem) => void;
+  onPreviewFavorite?: (item: GalleryItem) => void;
+  onPreviewDownload?: (item: GalleryItem) => void;
+  onPreviewInfo?: (item: GalleryItem) => void;
+  onPreviewShare?: (item: GalleryItem) => void;
+  onPreviewDelete?: (item: GalleryItem) => void;
   children: React.ReactNode;
+}
+
+export interface GalleryProps {
+  onSearch?: () => void;
+  onFilter?: () => void;
+  onAccount?: () => void;
+  onPreviewMore?: (item: GalleryItem) => void;
+  onPreviewFavorite?: (item: GalleryItem) => void;
+  onPreviewDownload?: (item: GalleryItem) => void;
+  onPreviewInfo?: (item: GalleryItem) => void;
+  onPreviewShare?: (item: GalleryItem) => void;
+  onPreviewDelete?: (item: GalleryItem) => void;
 }
