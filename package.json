@@ -6,6 +6,7 @@
   "license": "MIT",
   "packageManager": "pnpm@10",
   "repository": "https://github.com/maifeeulasad/react-mua-gallery",
+  "homepage": "https://maifeeulasad.github.io/react-mua-gallery/",
   "main": "dist/index.umd.js",
   "engines": {
     "node": ">=24",
