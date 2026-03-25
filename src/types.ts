@@ -29,7 +29,7 @@ export interface BottomNavProps {
 }
 
 export interface FullscreenPreviewDialogProps {
-  item: GalleryItem | null;
+  item?: GalleryItem;
   isOpen: boolean;
   onClose: () => void;
   onPrev: () => void;
@@ -46,7 +46,7 @@ export interface FullscreenActionProps {
 
 export interface GalleryGridProps {
   items: GalleryItem[];
-  selectedId: string | null;
+  selectedId?: string;
   onSelect: (id: string) => void;
   compact?: boolean;
 }
@@ -66,7 +66,7 @@ export interface GalleryItemCardProps {
 export interface GallerySectionProps {
   label: string;
   items: GalleryItem[];
-  selectedId: string | null;
+  selectedId?: string;
   onSelect: (id: string) => void;
   compact?: boolean;
 }
@@ -110,14 +110,14 @@ export interface MetaFieldProps {
 }
 
 export interface PreviewToolbarProps {
-  item: GalleryItem;
+  item?: GalleryItem;
   onClose: () => void;
   isFullscreen?: boolean;
   dark?: boolean;
 }
 
 export interface SplitPreviewPaneProps {
-  item: GalleryItem;
+  item?: GalleryItem;
   isOpen: boolean;
   onClose: () => void;
   onPrev: () => void;
@@ -135,7 +135,7 @@ export interface KeyboardNavProps {
 
 export interface AdaptivePreviewControllerProps {
   mode: "split" | "fullscreen" | string;
-  item: GalleryItem | null;
+  item?: GalleryItem;
   isOpen: boolean;
   onClose: () => void;
   onPrev: () => void;
