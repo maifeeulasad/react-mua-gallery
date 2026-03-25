@@ -8,6 +8,10 @@ import { GalleryHeader } from "./GalleryHeader";
 import { GallerySection } from "./GallerySection";
 import { BottomNav } from "./BottomNav";
 import { AdaptivePreviewController } from "./AdaptivePreviewController";
+import { GalleryItem, GalleryProps } from "./types";
+
+const NOOP = () => undefined;
+const NOOP_ITEM = (_item: GalleryItem) => undefined;
 
 // // ─── DESIGN TOKENS ────────────────────────────────────────────────────────────
 const CSS = `
@@ -99,7 +103,17 @@ const CSS = `
 `;
 
 
-export function Gallery() {
+export function Gallery({
+  onSearch = NOOP,
+  onFilter = NOOP,
+  onAccount = NOOP,
+  onPreviewMore = NOOP_ITEM,
+  onPreviewFavorite = NOOP_ITEM,
+  onPreviewDownload = NOOP_ITEM,
+  onPreviewInfo = NOOP_ITEM,
+  onPreviewShare = NOOP_ITEM,
+  onPreviewDelete = NOOP_ITEM,
+}: GalleryProps) {
   const viewportMode = useViewportMode();
   const {
     selectedId, selectedItem, isPreviewOpen,
@@ -127,7 +141,14 @@ export function Gallery() {
         button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
       `}</style>
 
-      <GalleryHeader tabs={CATEGORIES} activeTab={activeCategory} onTabChange={setActiveCategory} />
+      <GalleryHeader
+        tabs={CATEGORIES}
+        activeTab={activeCategory}
+        onTabChange={setActiveCategory}
+        onSearch={onSearch}
+        onFilter={onFilter}
+        onAccount={onAccount}
+      />
 
       {/* Main scrollable area */}
       <div style={{
@@ -143,6 +164,12 @@ export function Gallery() {
           item={selectedItem} isOpen={isPreviewOpen}
           onClose={closePreview} onPrev={goPrev} onNext={goNext}
           hasPrev={hasPrev} hasNext={hasNext}
+          onPreviewMore={onPreviewMore}
+          onPreviewFavorite={onPreviewFavorite}
+          onPreviewDownload={onPreviewDownload}
+          onPreviewInfo={onPreviewInfo}
+          onPreviewShare={onPreviewShare}
+          onPreviewDelete={onPreviewDelete}
         >
           <main style={{ padding: "24px 20px 32px", maxWidth: isSplit ? "none" : 960, margin: "0 auto" }}>
             {Object.entries(groups).map(([label, items]) => (
