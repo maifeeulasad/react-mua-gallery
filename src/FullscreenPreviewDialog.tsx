@@ -28,6 +28,7 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
   };
 
   if (!isOpen || !item) return null;
+  const isVideo = item.mediaType === 'video' && !!item.videoSrc;
 
   const handleMore = () => onMore?.(item);
   const handleLike = () => onLike?.(item);
@@ -70,8 +71,23 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
 
       {/* Image */}
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-        <img key={item.id} src={item.src} alt={item.alt} className="fade-in"
-          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+        {isVideo ? (
+          <video
+            key={`${item.id}-video`}
+            src={item.videoSrc}
+            poster={item.thumbnail ?? item.src}
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="fade-in"
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", background: '#000' }}
+          />
+        ) : (
+          <img key={item.id} src={item.src} alt={item.alt} className="fade-in"
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+        )}
         {hasPrev && (
           <button onClick={onPrev} style={{
             position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)",
