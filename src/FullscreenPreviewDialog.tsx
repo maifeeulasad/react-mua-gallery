@@ -15,7 +15,7 @@ import { FullscreenPreviewDialogProps } from './types';
  * @param {boolean} hasNext
  * @param {string} dateLabel
  */
-export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext, hasPrev, hasNext }: FullscreenPreviewDialogProps) {
+export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext, hasPrev, hasNext, onMore, onLike, onInfo, onShare, onDelete }: FullscreenPreviewDialogProps) {
   // Touch swipe support
   const touchStartX = useRef<number | null>(null);
 
@@ -28,6 +28,12 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
   };
 
   if (!isOpen || !item) return null;
+
+  const handleMore = () => onMore?.(item);
+  const handleLike = () => onLike?.(item);
+  const handleInfo = () => onInfo?.(item);
+  const handleShare = () => onShare?.(item);
+  const handleDelete = () => onDelete?.(item);
 
   return (
     <div
@@ -59,7 +65,7 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
             </div>
           )}
         </div>
-        <IconButton icon="more_vert" label="More" variant="ghost" onClick={() => {}} />
+        <IconButton icon="more_vert" label="More" variant="ghost" onClick={handleMore} />
       </header>
 
       {/* Image */}
@@ -111,12 +117,12 @@ export function FullscreenPreviewDialog({ item, isOpen, onClose, onPrev, onNext,
           boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
         }}>
           {[
-            { icon: "favorite", label: "Like" },
-            { icon: "info", label: "Info" },
-            { icon: "share", label: "Send" },
-            { icon: "delete", label: "Bin", danger: true },
-          ].map(({ icon, label, danger }) => (
-            <button key={icon} style={{
+            { icon: "favorite", label: "Like", onClick: handleLike },
+            { icon: "info", label: "Info", onClick: handleInfo },
+            { icon: "share", label: "Send", onClick: handleShare },
+            { icon: "delete", label: "Bin", danger: true, onClick: handleDelete },
+          ].map(({ icon, label, danger, onClick }) => (
+            <button key={icon} onClick={onClick} style={{
               display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
               background: "none", border: "none", cursor: "pointer",
               color: danger ? "var(--error-container)" : "rgba(255,255,255,0.8)",
