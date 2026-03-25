@@ -11,7 +11,10 @@
     ],
     "sourceMap": true,
     "allowJs": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "types": [
+      "vite/client"
+    ],
     "declaration": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
