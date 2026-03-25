@@ -1,4 +1,4 @@
-export interface GalleryItem {
+export interface GalleryBaseItem {
   id: string;
   group: string;
   title: string;
@@ -12,12 +12,22 @@ export interface GalleryItem {
   description: string;
   notes: string;
   alt: string;
-  src: string;
   thumbnail?: string;
   span?: 'normal' | 'wide' | 'tall';
-  mediaType?: 'image' | 'video';
-  videoSrc?: string;
 }
+
+export interface ImageGalleryItem extends GalleryBaseItem {
+  mediaType: 'image';
+  src: string;
+}
+
+export interface VideoGalleryItem extends GalleryBaseItem {
+  mediaType: 'video';
+  videoSrc: string;
+  posterSrc?: string;
+}
+
+export type GalleryItem = ImageGalleryItem | VideoGalleryItem;
 
 export interface TabType {
   id: string;
