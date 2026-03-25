@@ -1,16 +1,11 @@
 import { useEffect } from 'react';
+import { KeyboardNavProps } from './types';
 
 /**
  * Handles keyboard navigation for preview mode:
  *   - ArrowLeft/ArrowRight: navigate prev/next
  *   - Escape: close preview
  */
-interface KeyboardNavProps {
-  isOpen: boolean;
-  onPrev: () => void;
-  onNext: () => void;
-  onClose: () => void;
-}
 
 export function useKeyboardNav({ isOpen, onPrev, onNext, onClose }: KeyboardNavProps) {
   useEffect(() => {
