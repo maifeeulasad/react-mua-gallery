@@ -1,27 +1,6 @@
-interface GalleryItem {
-  id: string;
-  group: string;
-  title: string;
-  filename: string;
-  date: string;
-  location: string;
-  camera: string;
-  dimensions: string;
-  category: string;
-  tags: string[];
-  description: string;
-  notes: string;
-  alt: string;
-  src: string;
-}
 
-interface GalleryGridProps {
-  items: GalleryItem[];
-  selectedId: string | null;
-  onSelect: (id: string) => void;
-  compact?: boolean;
-}
 import { GalleryItemCard } from './GalleryItemCard';
+import { GalleryGridProps, GalleryItem } from './types';
 
 /**
  * GalleryGrid — renders items in a responsive grid
@@ -31,19 +10,14 @@ import { GalleryItemCard } from './GalleryItemCard';
  * @param {boolean} compact - shrinks columns when split pane is open
  */
 export function GalleryGrid({ items, selectedId, onSelect, compact = false }: GalleryGridProps) {
-  const cols = compact
-    ? 'grid-cols-2 sm:grid-cols-3'
-    : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3';
-
   return (
-    <div className={`grid ${cols} gap-2`}>
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: compact ? "repeat(3, 1fr)" : "repeat(auto-fill, minmax(140px, 1fr))",
+      gap: 8,
+    }}>
       {items.map((item: GalleryItem) => (
-        <GalleryItemCard
-          key={item.id}
-          item={item}
-          isSelected={selectedId === item.id}
-          onSelect={onSelect}
-        />
+        <GalleryItemCard key={item.id} item={item} isSelected={selectedId === item.id} onSelect={onSelect} />
       ))}
     </div>
   );
