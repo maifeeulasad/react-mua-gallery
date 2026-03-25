@@ -1,4 +1,5 @@
 import { Icon } from './Icon';
+import { IconButtonProps } from './types';
 
 /**
  * IconButton — a circular/rounded icon button with hover states
@@ -10,52 +11,50 @@ import { Icon } from './Icon';
  * @param {boolean} [iconFilled]
  * @param {string} [className]
  */
-interface IconButtonProps {
-  icon: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  label?: string;
-  variant?: 'default' | 'filled' | 'ghost' | 'error';
-  size?: 'sm' | 'md' | 'lg';
-  iconFilled?: boolean;
-  className?: string;
-  disabled?: boolean;
-}
-
-export function IconButton({
-  icon,
-  onClick,
-  label,
-  variant = 'default',
-  size = 'md',
-  iconFilled = false,
-  className = '',
-  disabled = false,
-}: IconButtonProps) {
-  const variants: Record<'default' | 'filled' | 'ghost' | 'error', string> = {
-    default: 'hover:bg-surface-container-high text-on-surface-variant',
-    filled: 'bg-primary-container text-on-primary-container hover:opacity-90',
-    ghost: 'text-white/80 hover:bg-white/10',
-    error: 'text-error-container hover:bg-white/10',
-  };
-  const sizes: Record<'sm' | 'md' | 'lg', string> = {
-    sm: 'w-8 h-8',
-    md: 'w-10 h-10',
-    lg: 'w-12 h-12',
-  };
-  const iconSizes: Record<'sm' | 'md' | 'lg', 'sm' | 'md' | 'lg'> = { sm: 'sm', md: 'md', lg: 'lg' };
+export function IconButton({ icon, label, onClick, variant = "default", size = "md", iconFilled = false, disabled = false, className = "" }: IconButtonProps) {
+  const sz = { sm: 32, md: 40, lg: 44 }[size as "sm" | "md" | "lg"] || 40;
+  const iconSz: "sm" | "md" | "lg" = size === "sm" ? "sm" : size === "lg" ? "lg" : "md";
+  const bg = {
+    default: "rgba(0,0,0,0)",
+    filled: "var(--primary-container)",
+    ghost: "rgba(255,255,255,0.08)",
+    error: "rgba(0,0,0,0)",
+    dark: "rgba(0,0,0,0.25)",
+  }[variant];
+  const color = {
+    default: "var(--on-surface-variant)",
+    filled: "var(--on-primary-container)",
+    ghost: "rgba(255,255,255,0.85)",
+    error: "var(--error-container)",
+    dark: "rgba(255,255,255,0.85)",
+  }[variant];
+  const hoverBg = {
+    default: "var(--surface-high)",
+    filled: "var(--primary-container)",
+    ghost: "rgba(255,255,255,0.14)",
+    error: "rgba(255,255,255,0.08)",
+    dark: "rgba(255,255,255,0.14)",
+  }[variant];
 
   return (
     <button
       aria-label={label || icon}
       onClick={onClick}
       disabled={disabled}
-      className={`
-        ${sizes[size]} flex items-center justify-center rounded-xl transition-all duration-150
-        active:scale-90 disabled:opacity-30
-        ${variants[variant]} ${className}
-      `}
+      className={className}
+      style={{
+        width: sz, height: sz,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        borderRadius: 12, border: "none", cursor: disabled ? "default" : "pointer",
+        background: bg, color,
+        transition: "all 150ms ease",
+        opacity: disabled ? 0.3 : 1,
+        flexShrink: 0,
+      }}
+      onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => { if (!disabled) e.currentTarget.style.background = hoverBg ?? ""; }}
+      onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.background = bg ?? ""; }}
     >
-      <Icon name={icon} filled={iconFilled} size={iconSizes[size]} />
+      <Icon name={icon} filled={iconFilled} size={iconSz} />
     </button>
   );
 }
