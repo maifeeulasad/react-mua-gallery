@@ -104,6 +104,7 @@ const CSS = `
 
 
 export function Gallery({
+  galleryTitle = "React MUA Gallery",
   onSearch = NOOP,
   onFilter = NOOP,
   onAccount = NOOP,
@@ -145,6 +146,7 @@ export function Gallery({
         tabs={CATEGORIES}
         activeTab={activeCategory}
         onTabChange={setActiveCategory}
+        title={galleryTitle}
         onSearch={onSearch}
         onFilter={onFilter}
         onAccount={onAccount}

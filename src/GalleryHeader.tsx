@@ -8,7 +8,7 @@ import { GalleryHeaderProps, TabType } from './types';
  * @param {string} activeTab
  * @param {function} onTabChange
  */
-export function GalleryHeader({ tabs, activeTab, onTabChange, onSearch, onFilter, onAccount }: GalleryHeaderProps) {
+export function GalleryHeader({ tabs, activeTab, onTabChange, title = "React MUA Gallery", onSearch, onFilter, onAccount }: GalleryHeaderProps) {
   const handleSearch = () => onSearch?.();
   const handleFilter = () => onFilter?.();
   const handleAccount = () => onAccount?.();
@@ -25,7 +25,7 @@ export function GalleryHeader({ tabs, activeTab, onTabChange, onSearch, onFilter
       {/* Logo + Desktop tabs */}
       <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
         <span style={{ fontFamily: "var(--font-headline)", fontWeight: 800, fontSize: 20, letterSpacing: "-0.03em", color: "var(--on-surface)" }}>
-          Curator
+          {title}
         </span>
         <nav style={{ display: "flex", gap: 4 }} className="desktop-nav">
           {tabs.map((t: TabType) => (

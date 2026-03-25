@@ -60,6 +60,7 @@ export interface GalleryHeaderProps {
   tabs: TabType[];
   activeTab: string;
   onTabChange: (id: string) => void;
+  title?: string;
   onSearch?: () => void;
   onFilter?: () => void;
   onAccount?: () => void;
@@ -166,6 +167,7 @@ export interface AdaptivePreviewControllerProps {
 }
 
 export interface GalleryProps {
+  galleryTitle?: string;
   onSearch?: () => void;
   onFilter?: () => void;
   onAccount?: () => void;
