@@ -12,7 +12,6 @@ export function AdaptivePreviewController({ mode, item, isOpen, onClose, onPrev,
       <div style={{ display: "flex", height: "100%", overflow: "hidden" }}>
         <div style={{
           flex: 1, overflowY: "auto", minWidth: 0,
-          transition: "flex 300ms cubic-bezier(0.4,0,0.2,1)",
         }} className="scroll-thin">
           {children}
         </div>

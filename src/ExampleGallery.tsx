@@ -149,7 +149,7 @@ export function ExampleGallery() {
               <GallerySection
                 key={label} label={label} items={items}
                 selectedId={selectedId} onSelect={openPreview}
-                compact={isSplit && isPreviewOpen}
+                compact={isSplit}
               />
             ))}
             {Object.keys(groups).length === 0 && (
