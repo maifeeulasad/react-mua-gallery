@@ -1,44 +1,28 @@
-import { Icon } from './Icon';
+import { PreviewMetadataProps } from './types';
 
 /**
  * PreviewMetadata — displays title, tags, and EXIF-like details for an image
  * @param {object} item - gallery item
  */
-interface PreviewMetadataProps {
-  item: {
-    title: string;
-    description?: string;
-    tags?: string[];
-    date?: string;
-    dimensions?: string;
-    location?: string;
-    camera?: string;
-    notes?: string;
-  };
-}
-
 export function PreviewMetadata({ item }: PreviewMetadataProps) {
   return (
-    <div className="mt-8">
-      {/* Title + Tags */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-        <div>
-          <h1 className="font-headline font-extrabold text-3xl tracking-tighter text-on-surface">
-            {item.title}
-          </h1>
-          {item.description && (
-            <p className="text-on-surface-variant font-body text-sm mt-1.5 leading-relaxed">
-              {item.description}
-            </p>
-          )}
-        </div>
-        {Array.isArray(item.tags) && item.tags.length > 0 && (
-          <div className="flex gap-2 flex-wrap">
+    <div style={{ marginTop: 28 }}>
+      {/* Title + tags */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 24 }}>
+        <h1 style={{ fontFamily: "var(--font-headline)", fontWeight: 800, fontSize: 26, letterSpacing: "-0.03em", color: "var(--on-surface)", lineHeight: 1.2 }}>
+          {item.title}
+        </h1>
+        {item.description && (
+          <p style={{ fontSize: 13, color: "var(--on-surface-variant)", lineHeight: 1.6 }}>{item.description}</p>
+        )}
+        {item.tags?.length > 0 && (
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
             {item.tags.map((tag: string) => (
-              <span
-                key={tag}
-                className="px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-medium font-label"
-              >
+              <span key={tag} style={{
+                padding: "4px 12px", borderRadius: "var(--radius-full)",
+                background: "var(--surface-high)", color: "var(--on-surface-variant)",
+                fontSize: 11, fontWeight: 500,
+              }}>
                 {tag}
               </span>
             ))}
@@ -46,50 +30,35 @@ export function PreviewMetadata({ item }: PreviewMetadataProps) {
         )}
       </div>
 
-      {/* EXIF Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-outline-variant/15">
-        <MetaField label="Date Captured" value={item.date} icon="calendar_today" />
-        <MetaField label="Dimensions" value={item.dimensions} icon="straighten" />
-        <MetaField
-          label="Location"
-          value={item.location}
-          icon="location_on"
-        />
-        <MetaField label="Camera" value={item.camera} icon="photo_camera" />
+      {/* EXIF grid */}
+      <div style={{
+        display: "grid", gridTemplateColumns: "1fr 1fr",
+        gap: "16px 12px", padding: "20px 0",
+        borderTop: "1px solid rgba(171,179,183,0.2)",
+        marginBottom: 20,
+      }}>
+        {[
+          { label: "Date Captured", value: item.date },
+          { label: "Dimensions", value: item.dimensions },
+          { label: "Location", value: item.location },
+          { label: "Camera", value: item.camera },
+        ].map(({ label, value }) => value ? (
+          <div key={label}>
+            <div style={{ fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--outline)", marginBottom: 4 }}>{label}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--on-surface)" }}>{value}</div>
+          </div>
+        ) : null)}
       </div>
 
       {/* Notes */}
       {item.notes && (
-        <div className="bg-surface-container-low rounded-2xl p-6 mt-2">
-          <h3 className="font-headline font-bold text-sm uppercase tracking-widest text-outline mb-3">
+        <div style={{ background: "var(--surface-low)", borderRadius: 16, padding: 20 }}>
+          <h3 style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--outline)", marginBottom: 10 }}>
             Curator's Notes
           </h3>
-          <p className="text-on-surface-variant leading-relaxed font-body text-sm">
-            {item.notes}
-          </p>
+          <p style={{ fontSize: 13, color: "var(--on-surface-variant)", lineHeight: 1.7 }}>{item.notes}</p>
         </div>
       )}
-    </div>
-  );
-}
-
-interface MetaFieldProps {
-  label: string;
-  value: any;
-  icon?: string;
-}
-
-function MetaField({ label, value, icon }: MetaFieldProps) {
-  if (!value) return null;
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="text-[10px] font-bold uppercase tracking-widest text-outline font-label">
-        {label}
-      </span>
-      <span className="text-on-surface font-semibold text-sm font-body flex items-center gap-1">
-        {icon && <Icon name={icon} size="sm" className="text-on-surface-variant" />}
-        {value}
-      </span>
     </div>
   );
 }
