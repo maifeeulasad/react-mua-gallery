@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    base: process.env.EXAMPLE_BASE_PATH ?? '/',
     build: {
       outDir: 'example-dist',
       emptyOutDir: true,
