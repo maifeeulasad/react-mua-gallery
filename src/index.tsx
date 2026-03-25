@@ -14,4 +14,4 @@ export { CATEGORIES, GALLERY_GROUPS, GALLERY_ITEMS } from './galleryData';
 export { useGalleryState } from './useGalleryState';
 export { useKeyboardNav } from './useKeyboardNav';
 export { useViewportMode } from './useViewportMode';
-export { ExampleGallery } from './ExampleGallery';
+export { Gallery } from './Gallery';
