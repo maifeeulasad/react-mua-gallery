@@ -1,14 +1,9 @@
 import { useState, useCallback } from 'react';
+import { GalleryItem } from './types';
 
 /**
  * Central state for gallery selection and preview.
  */
-interface GalleryItem {
-  id: string;
-  category?: string;
-  [key: string]: any;
-}
-
 export function useGalleryState(items: GalleryItem[]) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -36,6 +31,12 @@ export function useGalleryState(items: GalleryItem[]) {
       ? items
       : items.filter((i: GalleryItem) => i.category === activeCategory);
 
+  const groups = filteredItems.reduce((acc: Record<string, GalleryItem[]>, item: GalleryItem) => {
+    if (!acc[item.group]) acc[item.group] = [];
+    acc[item.group].push(item);
+    return acc;
+  }, {} as Record<string, GalleryItem[]>);
+
   return {
     selectedId,
     selectedItem,
@@ -50,5 +51,6 @@ export function useGalleryState(items: GalleryItem[]) {
     filteredItems,
     hasNext: selectedIndex < items.length - 1,
     hasPrev: selectedIndex > 0,
+    groups,
   };
 }
