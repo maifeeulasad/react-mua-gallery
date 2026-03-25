@@ -27,3 +27,13 @@ export interface BottomNavProps {
   activeTab: string;
   onTabChange: (id: string) => void;
 }
+
+export interface FullscreenPreviewDialogProps {
+  item: GalleryItem | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+  hasPrev: boolean;
+  hasNext: boolean;
+}
