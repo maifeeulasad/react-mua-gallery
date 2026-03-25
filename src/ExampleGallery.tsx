@@ -99,7 +99,7 @@ const CSS = `
 `;
 
 
-export default function ExampleGallery() {
+export function ExampleGallery() {
   const viewportMode = useViewportMode();
   const {
     selectedId, selectedItem, isPreviewOpen,
