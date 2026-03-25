@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Icon } from "./Icon";
 import { GalleryItemCardProps } from "./types";
 
 /**
@@ -9,6 +10,8 @@ import { GalleryItemCardProps } from "./types";
  */
 export function GalleryItemCard({ item, isSelected, onSelect }: GalleryItemCardProps) {
   const [hovered, setHovered] = useState(false);
+  const isVideo = item.mediaType === "video" && !!item.videoSrc;
+  const previewSrc = item.thumbnail ?? item.src;
 
   return (
     <button
@@ -31,7 +34,7 @@ export function GalleryItemCard({ item, isSelected, onSelect }: GalleryItemCardP
       }}
     >
       <img
-        src={item.src}
+        src={previewSrc}
         alt={item.alt}
         loading="lazy"
         style={{
@@ -41,6 +44,30 @@ export function GalleryItemCard({ item, isSelected, onSelect }: GalleryItemCardP
           display: "block",
         }}
       />
+      {isVideo && (
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+            padding: "4px 8px",
+            borderRadius: 999,
+            background: "rgba(0,0,0,0.55)",
+            color: "#fff",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.2)",
+            pointerEvents: "none",
+          }}
+        >
+          <Icon name="play_arrow" size="sm" filled />
+          <span style={{ fontSize: 10, fontWeight: 600, fontFamily: "var(--font-body)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+            Video
+          </span>
+        </div>
+      )}
       {/* Selected tint */}
       {isSelected && (
         <div style={{
