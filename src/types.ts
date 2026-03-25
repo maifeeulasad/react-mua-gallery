@@ -37,3 +37,9 @@ export interface FullscreenPreviewDialogProps {
   hasPrev: boolean;
   hasNext: boolean;
 }
+
+export interface FullscreenActionProps {
+  icon: string;
+  label: string;
+  danger?: boolean;
+}
