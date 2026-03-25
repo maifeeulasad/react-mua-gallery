@@ -125,3 +125,10 @@ export interface SplitPreviewPaneProps {
   hasPrev: boolean;
   hasNext: boolean;
 }
+
+export interface KeyboardNavProps {
+  isOpen: boolean;
+  onPrev: () => void;
+  onNext: () => void;
+  onClose: () => void;
+}
