@@ -132,3 +132,15 @@ export interface KeyboardNavProps {
   onNext: () => void;
   onClose: () => void;
 }
+
+export interface AdaptivePreviewControllerProps {
+  mode: "split" | "fullscreen" | string;
+  item: GalleryItem | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+  hasPrev: boolean;
+  hasNext: boolean;
+  children: React.ReactNode;
+}
