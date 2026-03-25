@@ -1,4 +1,6 @@
-import { IconButton } from './IconButton';
+import { useState } from 'react';
+import { Icon } from './Icon';
+import { PreviewImageProps } from './types';
 
 /**
  * PreviewImage — the large image display with nav arrow overlays
@@ -9,54 +11,61 @@ import { IconButton } from './IconButton';
  * @param {boolean} hasNext
  * @param {boolean} dark - dark surface (fullscreen)
  */
-interface PreviewImageProps {
-  item: { id: string; src: string; alt: string };
-  onPrev: () => void;
-  onNext: () => void;
-  hasPrev: boolean;
-  hasNext: boolean;
-  dark?: boolean;
-}
-
 export function PreviewImage({ item, onPrev, onNext, hasPrev, hasNext, dark = false }: PreviewImageProps) {
-  const bg = dark ? 'bg-black' : 'bg-surface-container';
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div className={`relative group rounded-2xl overflow-hidden ${bg} flex items-center justify-center`}
-         style={{ minHeight: '320px' }}>
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: "relative",
+        borderRadius: 20, overflow: "hidden",
+        background: dark ? "#000" : "var(--surface-container)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        minHeight: 240,
+      }}
+    >
       <img
         key={item.id}
         src={item.src}
         alt={item.alt}
-        className="w-full h-full object-contain max-h-[70vh] transition-opacity duration-300"
-        style={{ display: 'block' }}
+        className="scale-in"
+        style={{ width: "100%", maxHeight: "60vh", objectFit: "contain", display: "block" }}
       />
-
-      {/* Nav overlays */}
-      <div className="absolute inset-0 flex items-center justify-between px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-        <div className="pointer-events-auto">
-          <IconButton
-            icon="chevron_left"
-            label="Previous image"
-            onClick={onPrev}
-            disabled={!hasPrev}
-            size="lg"
-            variant={dark ? 'ghost' : 'default'}
-            className={`shadow-lg ${dark ? 'bg-black/30 backdrop-blur' : 'bg-surface/80 backdrop-blur'}`}
-          />
-        </div>
-        <div className="pointer-events-auto">
-          <IconButton
-            icon="chevron_right"
-            label="Next image"
-            onClick={onNext}
-            disabled={!hasNext}
-            size="lg"
-            variant={dark ? 'ghost' : 'default'}
-            className={`shadow-lg ${dark ? 'bg-black/30 backdrop-blur' : 'bg-surface/80 backdrop-blur'}`}
-          />
-        </div>
-      </div>
+      {/* Nav arrows */}
+      {hasPrev && (
+        <button
+          onClick={onPrev}
+          style={{
+            position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
+            width: 44, height: 44, borderRadius: 12, border: "none", cursor: "pointer",
+            background: dark ? "rgba(0,0,0,0.4)" : "rgba(248,249,250,0.85)",
+            backdropFilter: "blur(12px)", color: dark ? "#fff" : "var(--on-surface)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            opacity: hovered ? 1 : 0, transition: "opacity 200ms ease",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.18)",
+          }}
+        >
+          <Icon name="chevron_left" />
+        </button>
+      )}
+      {hasNext && (
+        <button
+          onClick={onNext}
+          style={{
+            position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
+            width: 44, height: 44, borderRadius: 12, border: "none", cursor: "pointer",
+            background: dark ? "rgba(0,0,0,0.4)" : "rgba(248,249,250,0.85)",
+            backdropFilter: "blur(12px)", color: dark ? "#fff" : "var(--on-surface)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            opacity: hovered ? 1 : 0, transition: "opacity 200ms ease",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.18)",
+          }}
+        >
+          <Icon name="chevron_right" />
+        </button>
+      )}
     </div>
   );
 }
